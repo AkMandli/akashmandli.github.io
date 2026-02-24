@@ -555,8 +555,11 @@ body:hover .cursor { opacity: 1; }
   padding: 2.5rem 2rem;
   text-align: center;
   position: relative;
+  border-right: 1px solid var(--border);
 }
-
+.numbers-strip__item:last-child {
+  border-right: none;
+}
 .numbers-strip__num {
   display: block;
   font-family: var(--font-display);
