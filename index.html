@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Akash Mandli — Business Analyst & Pre-Sales Strategist. Turning complex client requirements into scalable product solutions across 8+ industries." />
+  <meta name="keywords" content="Business Analyst, Pre-Sales Strategist, Requirements Documentation, BRD, SRS, Ahmedabad, Gujarat" />
+  <meta property="og:title" content="Akash Mandli — Business Analyst & Pre-Sales Strategist" />
+  <meta property="og:description" content="Turning complexity into clarity. One requirement at a time." />
+  <title>Akash Mandli — Business Analyst & Pre-Sales Strategist</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300&family=Epilogue:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="nav" id="nav">
+    <div class="nav__container">
+      <a href="#home" class="nav__logo">
+        <span class="nav__logo-mark">AM</span>
+        <span class="nav__logo-text">Akash Mandli</span>
+      </a>
+
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#about" class="nav__link">About</a></li>
+        <li><a href="#services" class="nav__link">Services</a></li>
+        <li><a href="#process" class="nav__link">Process</a></li>
+        <li><a href="#case-studies" class="nav__link">Work</a></li>
+        <li><a href="#contact" class="nav__link nav__link--cta">Let's Talk</a></li>
+      </ul>
+
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="hero__grain"></div>
+    <div class="hero__grid-overlay"></div>
+
+    <div class="hero__container">
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          Available for opportunities · Ahmedabad, India
+        </div>
+
+        <h1 class="hero__headline">
+          <span class="hero__line" data-delay="0">Turning</span>
+          <span class="hero__line hero__line--accent" data-delay="1">Complexity</span>
+          <span class="hero__line" data-delay="2">Into Clarity.</span>
+        </h1>
+
+        <p class="hero__sub">
+          I'm <strong>Akash Mandli</strong> — a Business Analyst and Pre-Sales Strategist
+          helping IT companies define the right problems before building the wrong solutions.
+        </p>
+
+        <div class="hero__tags">
+          <span class="tag">Pre-Sales</span>
+          <span class="tag">Requirements Architecture</span>
+          <span class="tag">Process Design</span>
+          <span class="tag">8+ Industries</span>
+        </div>
+
+        <div class="hero__ctas">
+          <a href="#case-studies" class="btn btn--primary">View My Work</a>
+          <a href="resume-akash-mandli.pdf" class="btn btn--ghost" download>Download Resume</a>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <div class="hero__diagram">
+          <!-- Animated SVG process diagram -->
+          <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero__svg">
+            <!-- Background circle -->
+            <circle cx="200" cy="200" r="180" stroke="#00C9B1" stroke-width="0.5" stroke-dasharray="4 8" class="svg-rotate"/>
+            <circle cx="200" cy="200" r="130" stroke="#F5A623" stroke-width="0.5" stroke-dasharray="2 6" class="svg-rotate-reverse"/>
+
+            <!-- Center node -->
+            <circle cx="200" cy="200" r="44" fill="#0F2545" stroke="#00C9B1" stroke-width="1.5"/>
+            <text x="200" y="195" text-anchor="middle" fill="#00C9B1" font-family="Space Mono" font-size="11" font-weight="700">BA</text>
+            <text x="200" y="212" text-anchor="middle" fill="#8899BB" font-family="Epilogue" font-size="8">STRATEGIST</text>
+
+            <!-- Orbit nodes -->
+            <!-- Node 1: Discover - top -->
+            <circle cx="200" cy="28" r="28" fill="#0A1628" stroke="#00C9B1" stroke-width="1" class="node-pulse"/>
+            <text x="200" y="24" text-anchor="middle" fill="#FFFFFF" font-family="Epilogue" font-size="7.5" font-weight="500">DISCOVER</text>
+            <text x="200" y="35" text-anchor="middle" fill="#00C9B1" font-family="Space Mono" font-size="9">01</text>
+
+            <!-- Node 2: Analyze - right -->
+            <circle cx="372" cy="200" r="28" fill="#0A1628" stroke="#F5A623" stroke-width="1" class="node-pulse" style="animation-delay:0.5s"/>
+            <text x="372" y="196" text-anchor="middle" fill="#FFFFFF" font-family="Epilogue" font-size="7.5" font-weight="500">ANALYZE</text>
+            <text x="372" y="207" text-anchor="middle" fill="#F5A623" font-family="Space Mono" font-size="9">02</text>
+
+            <!-- Node 3: Document - bottom-right -->
+            <circle cx="310" cy="340" r="28" fill="#0A1628" stroke="#00C9B1" stroke-width="1" class="node-pulse" style="animation-delay:1s"/>
+            <text x="310" y="336" text-anchor="middle" fill="#FFFFFF" font-family="Epilogue" font-size="7.5" font-weight="500">DOCUMENT</text>
+            <text x="310" y="347" text-anchor="middle" fill="#00C9B1" font-family="Space Mono" font-size="9">03</text>
+
+            <!-- Node 4: Align - bottom-left -->
+            <circle cx="90" cy="340" r="28" fill="#0A1628" stroke="#F5A623" stroke-width="1" class="node-pulse" style="animation-delay:1.5s"/>
+            <text x="90" y="336" text-anchor="middle" fill="#FFFFFF" font-family="Epilogue" font-size="7.5" font-weight="500">ALIGN</text>
+            <text x="90" y="347" text-anchor="middle" fill="#F5A623" font-family="Space Mono" font-size="9">04</text>
+
+            <!-- Node 5: Support - left -->
+            <circle cx="28" cy="200" r="28" fill="#0A1628" stroke="#00C9B1" stroke-width="1" class="node-pulse" style="animation-delay:2s"/>
+            <text x="28" y="196" text-anchor="middle" fill="#FFFFFF" font-family="Epilogue" font-size="7.5" font-weight="500">SUPPORT</text>
+            <text x="28" y="207" text-anchor="middle" fill="#00C9B1" font-family="Space Mono" font-size="9">05</text>
+
+            <!-- Connecting lines -->
+            <line x1="200" y1="56" x2="200" y2="156" stroke="#00C9B1" stroke-width="0.75" stroke-dasharray="3 4" opacity="0.6"/>
+            <line x1="344" y1="200" x2="244" y2="200" stroke="#F5A623" stroke-width="0.75" stroke-dasharray="3 4" opacity="0.6"/>
+            <line x1="285" y1="315" x2="228" y2="240" stroke="#00C9B1" stroke-width="0.75" stroke-dasharray="3 4" opacity="0.6"/>
+            <line x1="115" y1="315" x2="172" y2="240" stroke="#F5A623" stroke-width="0.75" stroke-dasharray="3 4" opacity="0.6"/>
+            <line x1="56" y1="200" x2="156" y2="200" stroke="#00C9B1" stroke-width="0.75" stroke-dasharray="3 4" opacity="0.6"/>
+
+            <!-- Floating data dots -->
+            <circle cx="140" cy="90" r="3" fill="#00C9B1" opacity="0.5" class="float-dot"/>
+            <circle cx="320" cy="120" r="2" fill="#F5A623" opacity="0.5" class="float-dot" style="animation-delay:0.8s"/>
+            <circle cx="280" cy="280" r="3" fill="#00C9B1" opacity="0.4" class="float-dot" style="animation-delay:1.6s"/>
+            <circle cx="100" cy="260" r="2" fill="#F5A623" opacity="0.5" class="float-dot" style="animation-delay:2.4s"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__scroll-indicator">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="about__container">
+
+      <!-- Numbers Strip -->
+      <div class="numbers-strip reveal">
+        <div class="numbers-strip__item">
+          <span class="numbers-strip__num" data-target="3.5">0</span>
+          <span class="numbers-strip__unit">+</span>
+          <span class="numbers-strip__label">Years Experience</span>
+        </div>
+        <div class="numbers-strip__divider"></div>
+        <div class="numbers-strip__item">
+          <span class="numbers-strip__num" data-target="8">0</span>
+          <span class="numbers-strip__unit">+</span>
+          <span class="numbers-strip__label">Industries Served</span>
+        </div>
+        <div class="numbers-strip__divider"></div>
+        <div class="numbers-strip__item">
+          <span class="numbers-strip__num" data-target="30">0</span>
+          <span class="numbers-strip__unit">+</span>
+          <span class="numbers-strip__label">Projects Delivered</span>
+        </div>
+        <div class="numbers-strip__divider"></div>
+        <div class="numbers-strip__item">
+          <span class="numbers-strip__num" data-target="15">0</span>
+          <span class="numbers-strip__unit">+</span>
+          <span class="numbers-strip__label">Tools Mastered</span>
+        </div>
+      </div>
+
+      <!-- About Content -->
+      <div class="about__body">
+        <div class="about__label reveal">
+          <span class="section-label">About Me</span>
+        </div>
+
+        <div class="about__layout">
+          <div class="about__text">
+            <h2 class="about__heading reveal">
+              I work at the <em>intersection</em> of strategy and execution.
+            </h2>
+
+            <div class="about__paragraphs reveal">
+              <p>
+                I'm a Business Analyst who's comfortable in a client pitch one afternoon and deep in a BRD the next morning. My career has been built around one core belief: <strong>requirements written with precision save weeks of engineering time and thousands in rework costs.</strong>
+              </p>
+              <p>
+                At X-Byte Enterprise Solutions, I ran complete pre-sales cycles — from RFP analysis and solution scoping to client presentations and project handoffs. At Bytes Technolabs, I deepened my delivery-side practice with structured documentation, stakeholder interviews, and agile coordination across international teams.
+              </p>
+              <p>
+                I work best with IT service firms, digital product studios, and consulting organizations who need someone that can hold the client relationship and own the documentation layer simultaneously.
+              </p>
+            </div>
+
+            <div class="about__chips reveal">
+              <span class="chip">E-Commerce</span>
+              <span class="chip">Healthcare</span>
+              <span class="chip">EdTech</span>
+              <span class="chip">Logistics</span>
+              <span class="chip">Real Estate</span>
+              <span class="chip">Travel</span>
+              <span class="chip">Manufacturing</span>
+              <span class="chip">On-Demand</span>
+            </div>
+          </div>
+
+          <div class="about__aside reveal">
+            <div class="about__card">
+              <div class="about__photo-placeholder">
+                <div class="about__initials">AM</div>
+                <div class="about__photo-ring"></div>
+              </div>
+              <div class="about__card-info">
+                <p class="about__card-name">Akash Mandli</p>
+                <p class="about__card-title">Business Analyst & Pre-Sales Strategist</p>
+                <p class="about__card-location">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  Ahmedabad, Gujarat, India
+                </p>
+              </div>
+              <div class="about__card-links">
+                <a href="mailto:mandliakash@gmail.com" class="about__card-link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,12 2,6"></polyline></svg>
+                  mandliakash@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/akash-mandli" target="_blank" rel="noopener" class="about__card-link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                  linkedin.com/in/akash-mandli
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="services" id="services">
+    <div class="services__container">
+      <div class="services__header reveal">
+        <span class="section-label">What I Deliver</span>
+        <h2 class="services__heading">
+          Analytical depth.<br/>
+          <em>Business impact.</em>
+        </h2>
+        <p class="services__sub">
+          From the first client call to the final handoff — I bring structure, clarity, and documented precision to every stage of the product lifecycle.
+        </p>
+      </div>
+
+      <div class="services__grid">
+
+        <div class="service-card reveal" data-delay="0">
+          <div class="service-card__num">01</div>
+          <div class="service-card__icon">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 16C4 9.373 9.373 4 16 4s12 5.373 12 12-5.373 12-12 12S4 22.627 4 16z" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M16 4v4M16 24v4M4 16h4M24 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="16" cy="16" r="4" fill="currentColor" opacity="0.3"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Pre-Sales & Solution Consulting</h3>
+          <p class="service-card__desc">
+            From RFP response to solution walkthrough, I help your business development team present structured, credible, winning proposals — translating technical scope into business value narratives.
+          </p>
+          <div class="service-card__deliverables">
+            <span>Scope Documents</span>
+            <span>Solution Decks</span>
+            <span>Feature Matrix</span>
+            <span>Effort Estimation</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal" data-delay="1">
+          <div class="service-card__num">02</div>
+          <div class="service-card__icon">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="24" height="24" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M4 10h24M10 10v18M16 10v18" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="22" cy="20" r="2" fill="currentColor" opacity="0.4"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Requirements Architecture</h3>
+          <p class="service-card__desc">
+            Structured requirement gathering through stakeholder interviews, user story workshops, and process analysis sessions — producing documentation your engineering team can actually build from.
+          </p>
+          <div class="service-card__deliverables">
+            <span>BRD / SRS</span>
+            <span>User Stories</span>
+            <span>Use Cases</span>
+            <span>Functional Specs</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal" data-delay="2">
+          <div class="service-card__num">03</div>
+          <div class="service-card__icon">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="24" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="8" cy="24" r="3" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="24" cy="24" r="3" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M11 8h10M8 11v10M24 11v10M11 24h10" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Process Mapping & Workflow Design</h3>
+          <p class="service-card__desc">
+            End-to-end business process analysis using BPMN and UML notation. I identify gaps, redundancies, and automation opportunities — then document the optimized workflow.
+          </p>
+          <div class="service-card__deliverables">
+            <span>BPMN Diagrams</span>
+            <span>Swim Lane Maps</span>
+            <span>Flow Charts</span>
+            <span>Gap Analysis</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal" data-delay="3">
+          <div class="service-card__num">04</div>
+          <div class="service-card__icon">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 6h20v4H6zM6 14h12v4H6zM6 22h16v4H6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="24" cy="23" r="3" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Project Kickoff & Coordination</h3>
+          <p class="service-card__desc">
+            I design and facilitate kickoffs that align expectations, establish communication rhythms, and reduce scope creep risk — for both internal teams and client-facing engagements.
+          </p>
+          <div class="service-card__deliverables">
+            <span>Kickoff Decks</span>
+            <span>MoM Templates</span>
+            <span>RACI Matrix</span>
+            <span>Project Timelines</span>
+          </div>
+        </div>
+
+        <div class="service-card reveal" data-delay="4">
+          <div class="service-card__num">05</div>
+          <div class="service-card__icon">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="24" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 18l4-6 4 4 3-4 5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 28h24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Dashboard & Reporting Design</h3>
+          <p class="service-card__desc">
+            I design KPI frameworks, Looker Studio dashboards, and Excel-based reporting templates that give stakeholders real-time visibility without technical overhead.
+          </p>
+          <div class="service-card__deliverables">
+            <span>KPI Framework</span>
+            <span>Looker Studio</span>
+            <span>Data Flow Docs</span>
+            <span>Reporting Templates</span>
+          </div>
+        </div>
+
+        <div class="service-card service-card--cta reveal" data-delay="5">
+          <div class="service-card__cta-content">
+            <p class="service-card__cta-question">Have a complex project that needs structured thinking?</p>
+            <a href="#contact" class="btn btn--primary">Start a Conversation</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS ============ -->
+  <section class="process" id="process">
+    <div class="process__container">
+      <div class="process__header reveal">
+        <span class="section-label">How I Work</span>
+        <h2 class="process__heading">
+          A method behind<br/>
+          <em>every deliverable.</em>
+        </h2>
+        <p class="process__sub">
+          Structured. Repeatable. Outcome-focused. Here's the framework I bring to every engagement — from a startup's first product to an enterprise migration.
+        </p>
+      </div>
+
+      <div class="process__steps">
+
+        <div class="process__step reveal">
+          <div class="process__step-left">
+            <div class="process__step-num">01</div>
+            <div class="process__step-line"></div>
+          </div>
+          <div class="process__step-body">
+            <span class="process__step-phase">Phase One</span>
+            <h3 class="process__step-title">Discover</h3>
+            <p class="process__step-desc">
+              Every engagement starts with listening. I run structured discovery sessions to understand your business context, user pain points, and strategic objectives before any documentation begins. No assumptions — only questions and answers.
+            </p>
+            <div class="process__step-tools">
+              <span>Stakeholder Interviews</span>
+              <span>Workshop Facilitation</span>
+              <span>Context Mapping</span>
+            </div>
+          </div>
+          <div class="process__step-visual">
+            <div class="process__step-icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="20" r="10" stroke="#00C9B1" stroke-width="1.5"/>
+                <path d="M24 30v8M16 38h16" stroke="#00C9B1" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M32 14l4-4M16 14l-4-4" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="process__step reveal">
+          <div class="process__step-left">
+            <div class="process__step-num">02</div>
+            <div class="process__step-line"></div>
+          </div>
+          <div class="process__step-body">
+            <span class="process__step-phase">Phase Two</span>
+            <h3 class="process__step-title">Analyze</h3>
+            <p class="process__step-desc">
+              I map what exists against what's needed — identifying gaps, conflicts, and hidden requirements that stakeholders haven't yet articulated. Using impact-effort matrices, process audits, and competitive benchmarks to prioritize ruthlessly.
+            </p>
+            <div class="process__step-tools">
+              <span>Impact-Effort Matrix</span>
+              <span>Gap Analysis</span>
+              <span>Process Audit</span>
+            </div>
+          </div>
+          <div class="process__step-visual">
+            <div class="process__step-icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <rect x="8" y="8" width="14" height="14" rx="2" stroke="#00C9B1" stroke-width="1.5"/>
+                <rect x="26" y="8" width="14" height="14" rx="2" stroke="#F5A623" stroke-width="1.5"/>
+                <rect x="8" y="26" width="14" height="14" rx="2" stroke="#F5A623" stroke-width="1.5"/>
+                <rect x="26" y="26" width="14" height="14" rx="2" stroke="#00C9B1" stroke-width="1.5"/>
+                <path d="M22 15h4M15 22v4M26 33h4M33 22v4" stroke="#8899BB" stroke-width="1"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="process__step reveal">
+          <div class="process__step-left">
+            <div class="process__step-num">03</div>
+            <div class="process__step-line"></div>
+          </div>
+          <div class="process__step-body">
+            <span class="process__step-phase">Phase Three</span>
+            <h3 class="process__step-title">Document</h3>
+            <p class="process__step-desc">
+              Clarity on paper before clarity in code. I produce structured BRDs, SRS documents, user stories, and process diagrams that serve as the single source of truth for your product team. The documentation that engineers reference without asking questions.
+            </p>
+            <div class="process__step-tools">
+              <span>BRD / SRS</span>
+              <span>User Stories</span>
+              <span>Process Diagrams</span>
+            </div>
+          </div>
+          <div class="process__step-visual">
+            <div class="process__step-icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <rect x="10" y="6" width="28" height="36" rx="2" stroke="#00C9B1" stroke-width="1.5"/>
+                <path d="M16 14h16M16 20h16M16 26h10M16 32h8" stroke="#8899BB" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="34" cy="32" r="6" fill="#0F1F3D" stroke="#F5A623" stroke-width="1.5"/>
+                <path d="M31 32l2 2 4-4" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="process__step reveal">
+          <div class="process__step-left">
+            <div class="process__step-num">04</div>
+            <div class="process__step-line"></div>
+          </div>
+          <div class="process__step-body">
+            <span class="process__step-phase">Phase Four</span>
+            <h3 class="process__step-title">Align</h3>
+            <p class="process__step-desc">
+              Requirement sign-off isn't a formality — it's a risk management step. I facilitate validation sessions, manage feedback loops, and ensure all stakeholders are genuinely aligned before the first line of code is written.
+            </p>
+            <div class="process__step-tools">
+              <span>Validation Sessions</span>
+              <span>Sign-off Workflows</span>
+              <span>Stakeholder Alignment</span>
+            </div>
+          </div>
+          <div class="process__step-visual">
+            <div class="process__step-icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="16" cy="16" r="6" stroke="#00C9B1" stroke-width="1.5"/>
+                <circle cx="32" cy="16" r="6" stroke="#F5A623" stroke-width="1.5"/>
+                <circle cx="24" cy="30" r="6" stroke="#00C9B1" stroke-width="1.5"/>
+                <path d="M22 16h4M19 22l3 5M29 22l-3 5" stroke="#8899BB" stroke-width="1"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="process__step reveal" style="--last:1">
+          <div class="process__step-left">
+            <div class="process__step-num">05</div>
+          </div>
+          <div class="process__step-body">
+            <span class="process__step-phase">Phase Five</span>
+            <h3 class="process__step-title">Support</h3>
+            <p class="process__step-desc">
+              Post-documentation, I stay engaged — answering developer questions, managing scope change requests, and maintaining documentation accuracy through sprint cycles. Delivery doesn't end at handoff.
+            </p>
+            <div class="process__step-tools">
+              <span>Sprint Support</span>
+              <span>Change Management</span>
+              <span>Documentation Updates</span>
+            </div>
+          </div>
+          <div class="process__step-visual">
+            <div class="process__step-icon">
+              <svg viewBox="0 0 48 48" fill="none">
+                <path d="M24 10C16.268 10 10 16.268 10 24s6.268 14 14 14 14-6.268 14-14" stroke="#00C9B1" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M36 10l2 4-4 2" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M20 24l3 3 6-7" stroke="#00C9B1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLACEHOLDER SECTIONS ============ -->
+  <!-- Case Studies, Tools, Industries, Testimonials, Contact will be added next -->
+  <section class="coming-soon-placeholder" id="case-studies">
+    <div style="text-align:center; padding: 6rem 2rem;">
+      <span class="section-label">Case Studies</span>
+      <h2 style="color:#fff; font-family:'Fraunces',serif; margin-top:1rem;">Work samples coming next.</h2>
+      <p style="color:#8899BB; margin-top:1rem;">Contact section is below.</p>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="contact__container">
+      <div class="contact__header reveal">
+        <span class="section-label">Get In Touch</span>
+        <h2 class="contact__heading">
+          Let's work<br/>
+          <em>together.</em>
+        </h2>
+        <p class="contact__sub">
+          Open to full-time roles and selective consulting engagements. If you need sharp requirements thinking and strong client communication — reach out.
+        </p>
+      </div>
+
+      <div class="contact__layout">
+        <div class="contact__form-wrap reveal">
+          <form class="contact__form" id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="John Smith" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="john@company.com" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="type">Engagement Type</label>
+              <select id="type" name="type">
+                <option value="">Select type...</option>
+                <option value="full-time">Full-time Role</option>
+                <option value="consulting">Consulting / Project</option>
+                <option value="presales">Pre-Sales Support</option>
+                <option value="requirements">Requirements Documentation</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell me about your project or role..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+          </form>
+        </div>
+
+        <div class="contact__info reveal">
+          <div class="contact__info-card">
+            <h3>Direct Contact</h3>
+            <div class="contact__info-items">
+              <a href="mailto:mandliakash@gmail.com" class="contact__info-item">
+                <div class="contact__info-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,12 2,6"></polyline></svg>
+                </div>
+                <div>
+                  <span class="contact__info-label">Email</span>
+                  <span class="contact__info-value">mandliakash@gmail.com</span>
+                </div>
+              </a>
+              <a href="tel:+918866905830" class="contact__info-item">
+                <div class="contact__info-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.59a16 16 0 0 0 6.04 6.04l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>
+                <div>
+                  <span class="contact__info-label">Phone</span>
+                  <span class="contact__info-value">+91 88669 05830</span>
+                </div>
+              </a>
+              <a href="https://www.linkedin.com/in/akash-mandli" target="_blank" rel="noopener" class="contact__info-item">
+                <div class="contact__info-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </div>
+                <div>
+                  <span class="contact__info-label">LinkedIn</span>
+                  <span class="contact__info-value">linkedin.com/in/akash-mandli</span>
+                </div>
+              </a>
+              <div class="contact__info-item">
+                <div class="contact__info-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div>
+                  <span class="contact__info-label">Location</span>
+                  <span class="contact__info-value">Ahmedabad, Gujarat, India</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__left">
+        <a href="#home" class="footer__logo">
+          <span class="nav__logo-mark">AM</span>
+          Akash Mandli
+        </a>
+        <p class="footer__tagline">Turning complexity into clarity.</p>
+      </div>
+      <div class="footer__right">
+        <p class="footer__copy">© 2025 Akash Mandli. All rights reserved.</p>
+        <p class="footer__copy" style="opacity:0.4; font-size:0.75rem; margin-top:0.25rem;">Built with precision. Like my BRDs.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
