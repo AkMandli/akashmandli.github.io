@@ -1402,3 +1402,175 @@ body:hover .cursor { opacity: 1; }
     grid-template-columns: 1fr 1fr;
   }
 }
+/* ============================================
+   RESPONSIVE REFINEMENTS (No layout changes)
+   Add at the very bottom of your CSS
+   ============================================ */
+
+
+/* ---------- Improve Small Laptops (1200px ↓) ---------- */
+@media (max-width: 1200px) {
+  .hero__container,
+  .about__container,
+  .services__container,
+  .process__container,
+  .contact__container,
+  .footer__container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .about__layout {
+    gap: 3rem;
+  }
+
+  .contact__layout {
+    gap: 3rem;
+  }
+}
+
+
+/* ---------- Tablet Improvements (992px ↓) ---------- */
+@media (max-width: 992px) {
+  .hero {
+    min-height: auto;
+    padding-top: 6rem;
+  }
+
+  .hero__container {
+    padding-top: 6rem;
+  }
+
+  .hero__sub {
+    max-width: 100%;
+  }
+
+  .about__heading,
+  .services__heading,
+  .process__heading,
+  .contact__heading {
+    line-height: 1.2;
+  }
+
+  .process__step {
+    grid-template-columns: 70px 1fr;
+  }
+
+  .process__step-visual {
+    display: none;
+  }
+}
+
+
+/* ---------- Mobile Navigation Fix ---------- */
+@media (max-width: 768px) {
+
+  /* Prevent body scroll when menu is open (optional if JS adds class) */
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  .nav__links.open {
+    padding: 2rem;
+  }
+
+  .nav__link--cta {
+    margin-left: 0;
+  }
+
+  .hero__container {
+    padding: 6rem 1.5rem 4rem;
+  }
+
+  .hero__headline {
+    font-size: clamp(2.2rem, 8vw, 3rem);
+  }
+
+  .hero__sub {
+    font-size: 0.95rem;
+  }
+
+  .about__paragraphs p {
+    font-size: 0.92rem;
+  }
+
+  .service-card {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .process__step-title {
+    font-size: 1.4rem;
+  }
+
+  .process__step-desc {
+    font-size: 0.85rem;
+  }
+
+  .contact__header {
+    margin-bottom: 3rem;
+  }
+}
+
+
+/* ---------- Small Phones (480px ↓) ---------- */
+@media (max-width: 480px) {
+
+  html {
+    font-size: 15px;
+  }
+
+  .hero__badge {
+    font-size: 0.6rem;
+  }
+
+  .hero__headline {
+    line-height: 1.15;
+  }
+
+  .hero__ctas {
+    gap: 0.6rem;
+  }
+
+  .numbers-strip__item {
+    padding: 1.75rem 1rem;
+  }
+
+  .about__card {
+    padding: 1.5rem;
+  }
+
+  .contact__info-card {
+    padding: 1.5rem;
+  }
+
+  .service-card__title {
+    font-size: 1rem;
+  }
+
+  .service-card__desc {
+    font-size: 0.8rem;
+  }
+
+  .footer {
+    padding: 1.5rem;
+  }
+}
+
+
+/* ---------- Ultra Small Devices (360px ↓) ---------- */
+@media (max-width: 360px) {
+
+  .hero__headline {
+    font-size: 2rem;
+  }
+
+  .section-label {
+    font-size: 0.6rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+  }
+
+}
