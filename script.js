@@ -11,7 +11,39 @@
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3SAEeYUd_85KpyhWUK3NU9pjPTywqO-yYRSDYBa7VlzsBNyqn92AlSCyVS5VcKfKV/exec";
 // Example: "https://script.google.com/macros/s/AKfycb.../exec"
 // ============================================================
+document.addEventListener("DOMContentLoaded", () => {
+  const carousel = document.querySelector(".tools__carousel");
+  let isDown = false;
+  let startX;
+  let scrollLeft;
 
+  // Mouse down
+  carousel.addEventListener("mousedown", (e) => {
+    isDown = true;
+    carousel.classList.add("active");
+    startX = e.pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
+  });
+
+  // Mouse leave / up
+  carousel.addEventListener("mouseleave", () => {
+    isDown = false;
+    carousel.classList.remove("active");
+  });
+  carousel.addEventListener("mouseup", () => {
+    isDown = false;
+    carousel.classList.remove("active");
+  });
+
+  // Mouse move
+  carousel.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - carousel.offsetLeft;
+    const walk = (x - startX) * 2; //scroll-fast
+    carousel.scrollLeft = scrollLeft - walk;
+  });
+});
 document.addEventListener('DOMContentLoaded', () => {
 
   // ============ CUSTOM CURSOR ============
