@@ -636,15 +636,10 @@ body:hover .cursor { opacity: 1; }
   gap: 0.5rem;
   margin-top: 2rem;
 }
-   .tools {
+.tools {
   padding: 4rem 2rem;
   background-color: #0F1F3D;
   color: #fff;
-}
-
-.tools__header {
-  text-align: center;
-  margin-bottom: 2rem;
 }
 
 .tools__carousel {
@@ -654,31 +649,43 @@ body:hover .cursor { opacity: 1; }
 
 .tools__track {
   display: flex;
-  align-items: center;       /* Vertically align all items */
-  gap: 3rem;
+  align-items: center;
+  gap: 2rem;
   animation: scrollTools 20s linear infinite;
 }
 
 .tools__item {
-  flex: 0 0 120px;           /* Equal width for all items */
+  flex: 0 0 140px;               /* Equal card width */
+  background: #162A4F;           /* Slightly lighter than bg */
+  border-radius: 16px;
+  padding: 1.5rem 1rem;
   display: flex;
-  flex-direction: column;    /* Icon top, text below */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Hover effect */
+.tools__item:hover {
+  transform: translateY(-6px);
+  background: #1C3563;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .tools__item img {
   width: 64px;
   height: 64px;
   object-fit: contain;
-  display: block;            /* Removes inline spacing issue */
+  display: block;
 }
 
 .tools__item span {
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   font-size: 0.9rem;
-  line-height: 1.2;
+  font-weight: 500;
   white-space: nowrap;
 }
 
