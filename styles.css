@@ -637,8 +637,8 @@ body:hover .cursor { opacity: 1; }
   margin-top: 2rem;
 }
 .tools {
- padding: var(--section-padding);
-  background: var(--navy);
+   padding: var(--section-padding);
+   background: var(--navy);
 }
 
 .tools__carousel {
@@ -1514,6 +1514,7 @@ body:hover .cursor { opacity: 1; }
 
   .about__heading,
   .services__heading,
+   .tools__heading,
   .process__heading,
   .contact__heading {
     line-height: 1.2;
