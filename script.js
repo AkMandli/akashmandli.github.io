@@ -1,9 +1,16 @@
 /* ============================================
-   AKASH MANDLI PORTFOLIO — script.js
+   AKASH MANDLI PORTFOLIO — script.js (v2)
    Handles: Cursor, Nav, Scroll Reveal,
             Number Counters, Mobile Menu,
-            Form interactions
+            Form → Google Apps Script → Drive + Email
    ============================================ */
+
+// ============================================================
+// ⚠️  PASTE YOUR GOOGLE APPS SCRIPT URL HERE AFTER DEPLOYING
+// ============================================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlmZWGCCneuulysSI4DtWz9uJx21_jgkJlLQrRH6AjvFcvIrGBmt2ex7iPX7-JV3WM/exec";
+// Example: "https://script.google.com/macros/s/AKfycb.../exec"
+// ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -232,49 +239,124 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // ============ CONTACT FORM ============
+  // ============ CONTACT FORM → GOOGLE APPS SCRIPT ============
   const contactForm = document.getElementById('contactForm');
 
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
 
-      const btn = contactForm.querySelector('.btn--primary');
-      const originalText = btn.textContent;
-
-      // Animate button
-      btn.textContent = 'Sending...';
-      btn.style.opacity = '0.7';
-      btn.style.pointerEvents = 'none';
-
-      // Simulate submission (replace with your form service: Formspree, Netlify Forms, etc.)
-      setTimeout(() => {
-        btn.textContent = '✓ Message Sent!';
-        btn.style.background = '#10b981';
-        btn.style.borderColor = '#10b981';
-        btn.style.opacity = '1';
-
-        // Reset after 3 seconds
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.style.background = '';
-          btn.style.borderColor = '';
-          btn.style.pointerEvents = '';
-          contactForm.reset();
-        }, 3000);
-      }, 1500);
-    });
-
-    // Focus effects on form inputs
-    const inputs = contactForm.querySelectorAll('input, select, textarea');
-    inputs.forEach(input => {
+    // Input focus label highlight
+    contactForm.querySelectorAll('input, select, textarea').forEach(input => {
       input.addEventListener('focus', () => {
-        input.parentElement.querySelector('label').style.color = 'var(--teal)';
+        const label = input.parentElement.querySelector('label');
+        if (label) label.style.color = 'var(--teal)';
       });
       input.addEventListener('blur', () => {
-        input.parentElement.querySelector('label').style.color = '';
+        const label = input.parentElement.querySelector('label');
+        if (label) label.style.color = '';
       });
     });
+
+    // Form submit handler
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const btn     = contactForm.querySelector('.btn--primary');
+      const spinner = createSpinner();
+
+      // UI: Loading state
+      btn.disabled      = true;
+      btn.style.opacity = '0.8';
+      btn.innerHTML     = '';
+      btn.appendChild(spinner);
+      btn.appendChild(document.createTextNode(' Sending...'));
+
+      // Collect form data
+      const formData = {
+        name:    contactForm.querySelector('#name').value.trim(),
+        email:   contactForm.querySelector('#email').value.trim(),
+        type:    contactForm.querySelector('#type').value || 'Not specified',
+        message: contactForm.querySelector('#message').value.trim(),
+      };
+
+      // Warn if URL not set yet
+      if (SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL") {
+        showFormResult(btn, 'error', '⚠️ Script URL not configured yet.');
+        return;
+      }
+
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+          showFormResult(btn, 'success', '✓ Message Sent!');
+          contactForm.reset();
+          showThankYouBanner(contactForm);
+        } else {
+          showFormResult(btn, 'error', '✗ Something went wrong. Try again.');
+        }
+
+      } catch (err) {
+        console.error('Form error:', err);
+        showFormResult(btn, 'error', '✗ Network error.');
+        showFallbackLink(contactForm, buildMailtoFallback(formData));
+      }
+    });
+  }
+
+  function createSpinner() {
+    const s = document.createElement('span');
+    s.style.cssText = 'display:inline-block;width:14px;height:14px;border:2px solid rgba(15,31,61,0.3);border-top-color:#0F1F3D;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:6px;';
+    if (!document.getElementById('spin-style')) {
+      const st = document.createElement('style');
+      st.id = 'spin-style';
+      st.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
+      document.head.appendChild(st);
+    }
+    return s;
+  }
+
+  function showFormResult(btn, type, text) {
+    btn.innerHTML = text;
+    btn.disabled  = false;
+    btn.style.opacity     = '1';
+    btn.style.background  = type === 'success' ? '#059669' : '#dc2626';
+    btn.style.borderColor = type === 'success' ? '#059669' : '#dc2626';
+    btn.style.color       = '#ffffff';
+    setTimeout(() => {
+      btn.innerHTML = 'Send Message';
+      ['background','borderColor','color','opacity'].forEach(p => btn.style[p] = '');
+    }, 4000);
+  }
+
+  function showThankYouBanner(form) {
+    const existing = form.querySelector('.thank-you-banner');
+    if (existing) existing.remove();
+    const b = document.createElement('div');
+    b.className = 'thank-you-banner';
+    b.style.cssText = 'margin-top:1.25rem;padding:1rem 1.25rem;background:rgba(5,150,105,0.1);border:1px solid rgba(5,150,105,0.3);border-radius:8px;color:#6ee7b7;font-size:0.875rem;line-height:1.6;animation:fadeUp 0.4s ease;';
+    b.innerHTML = '<strong style="display:block;margin-bottom:0.3rem;">Thank you for reaching out!</strong>Your message has been saved and I\'ll get back to you within 24 hours.';
+    form.appendChild(b);
+    setTimeout(() => { b.style.opacity = '0'; b.style.transition = 'opacity 0.5s'; setTimeout(() => b.remove(), 500); }, 8000);
+  }
+
+  function showFallbackLink(form, href) {
+    const existing = form.querySelector('.fallback-link');
+    if (existing) existing.remove();
+    const p = document.createElement('p');
+    p.className = 'fallback-link';
+    p.style.cssText = 'margin-top:1rem;font-size:0.82rem;color:var(--text-dim);text-align:center;';
+    p.innerHTML = `Network issue? <a href="${href}" style="color:var(--teal);text-decoration:underline;">Email directly instead →</a>`;
+    form.appendChild(p);
+  }
+
+  function buildMailtoFallback({ name, email, type, message }) {
+    return `mailto:mandliakash@gmail.com?subject=${encodeURIComponent('Portfolio Inquiry — ' + type)}&body=${encodeURIComponent(`Hi Akash,\n\nName: ${name}\nEmail: ${email}\nType: ${type}\n\nMessage:\n${message}`)}`;
   }
 
 
