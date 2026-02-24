@@ -636,7 +636,61 @@ body:hover .cursor { opacity: 1; }
   gap: 0.5rem;
   margin-top: 2rem;
 }
+.tools {
+  padding: 4rem 2rem;
+  background-color: #0F1F3D;
+  color: #fff;
+}
 
+.tools__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.tools__carousel {
+  overflow: hidden;
+  position: relative;
+}
+
+.tools__track {
+  display: flex;
+  gap: 2rem;
+  animation: scrollTools 20s linear infinite;
+}
+
+.tools__item {
+  flex: 0 0 auto;
+  width: 100px;
+  text-align: center;
+}
+
+.tools__item img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0.5rem;
+}
+
+.tools__item span {
+  display: block;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Infinite auto-scroll animation */
+@keyframes scrollTools {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tools__track {
+    gap: 1.2rem;
+  }
+  .tools__item {
+    width: 80px;
+  }
+}
 /* About Card */
 .about__card {
   background: rgba(255,255,255,0.03);
