@@ -8,7 +8,7 @@
 // ============================================================
 // ⚠️  PASTE YOUR GOOGLE APPS SCRIPT URL HERE AFTER DEPLOYING
 // ============================================================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyf-880V9CgDjIc4li8Ti3EenVY4XUsiyaeFG8RUjIVKps0tsIjBmHQsElX-w0BEl9/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3SAEeYUd_85KpyhWUK3NU9pjPTywqO-yYRSDYBa7VlzsBNyqn92AlSCyVS5VcKfKV/exec";
 // Example: "https://script.google.com/macros/s/AKfycb.../exec"
 // ============================================================
 
