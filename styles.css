@@ -636,7 +636,7 @@ body:hover .cursor { opacity: 1; }
   gap: 0.5rem;
   margin-top: 2rem;
 }
-.tools {
+   .tools {
   padding: 4rem 2rem;
   background-color: #0F1F3D;
   color: #fff;
@@ -654,33 +654,32 @@ body:hover .cursor { opacity: 1; }
 
 .tools__track {
   display: flex;
-  align-items: center;        /* Vertically center items */
-  gap: 3rem;                  /* Space between tools */
+  align-items: center;       /* Vertically align all items */
+  gap: 3rem;
   animation: scrollTools 20s linear infinite;
 }
 
 .tools__item {
-  display: flex;              /* Make icon + text inline */
-  align-items: center;        /* Vertical alignment */
-  gap: 0.75rem;               /* Space between icon and text */
-  flex: 0 0 auto;
-  white-space: nowrap;        /* Prevent text wrapping */
+  flex: 0 0 120px;           /* Equal width for all items */
+  display: flex;
+  flex-direction: column;    /* Icon top, text below */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .tools__item img {
-  width: 40px;
-  height: 40px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
-  display: block;
+  display: block;            /* Removes inline spacing issue */
 }
 
 .tools__item span {
-  font-size: 0.95rem;
-  line-height: 1;
-}
-.tools__carousel {
-  display: flex;
-  align-items: center;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 /* Infinite auto-scroll animation */
