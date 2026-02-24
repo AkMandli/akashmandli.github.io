@@ -539,52 +539,43 @@ body:hover .cursor { opacity: 1; }
   padding: 0 2rem;
 }
 
-/* ---------- Numbers Strip (Clean Version) ---------- */
-
+/* ===== Numbers Strip: Always Single Row ===== */
 .numbers-strip {
   display: grid;
-  /*grid-template-columns: repeat(2, 1fr);*/
-  background: rgba(255,255,255,0.02);
+  grid-template-columns: repeat(4, 1fr);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  margin-bottom: 5rem;
 }
 
+/* Item */
 .numbers-strip__item {
-  padding: 3.5rem 2rem;
+  padding: 2.5rem 2rem;
   text-align: center;
   border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
-/* Remove right border on right column */
-.numbers-strip__item:nth-child(2n) {
+/* Remove last divider */
+.numbers-strip__item:last-child {
   border-right: none;
 }
 
-/* Remove bottom border on last row */
-.numbers-strip__item:nth-child(n+3) {
-  border-bottom: none;
-}
+/* ===== Mobile: keep row, allow scroll ===== */
+@media (max-width: 768px) {
+  .numbers-strip {
+    grid-template-columns: repeat(4, minmax(180px, 1fr));
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 
-.numbers-strip__num {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 4vw, 3.75rem);
-  font-weight: 300;
-  color: var(--teal);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.75rem;
-}
+  .numbers-strip__item {
+    padding: 2rem 1.5rem;
+  }
 
-.numbers-strip__label {
-  font-size: 0.85rem;
-  color: var(--text-dim);
-  font-weight: 500;
+  /* optional: hide scrollbar */
+  .numbers-strip::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .about__label {
