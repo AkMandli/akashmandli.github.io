@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       // Warn if URL not set yet
-      if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzlmZWGCCneuulysSI4DtWz9uJx21_jgkJlLQrRH6AjvFcvIrGBmt2ex7iPX7-JV3WM/exec") {
+      if (SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL") {
         showFormResult(btn, 'error', '⚠️ Script URL not configured yet.');
         return;
       }
