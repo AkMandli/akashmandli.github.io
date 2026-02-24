@@ -542,7 +542,8 @@ body:hover .cursor { opacity: 1; }
 /* Numbers Strip */
 .numbers-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
   gap: 0;
   background: rgba(255,255,255,0.02);
   border: 1px solid var(--border);
@@ -583,10 +584,21 @@ body:hover .cursor { opacity: 1; }
   letter-spacing: 0.02em;
 }
 
-.numbers-strip__divider {
-  width: 1px;
-  background: var(--border);
-  align-self: stretch;
+.numbers-strip__item {
+  padding: 3rem 2rem;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Remove right border on even items */
+.numbers-strip__item:nth-child(2n) {
+  border-right: none;
+}
+
+/* Remove bottom border on last row */
+.numbers-strip__item:nth-child(n+3) {
+  border-bottom: none;
 }
 
 .about__label {
