@@ -1363,10 +1363,10 @@ body:hover .cursor { opacity: 1; }
     color: var(--white);
   }
 
-  .numbers-strip {
-    grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 4rem;
-  }
+    .numbers-strip {
+     grid-template-columns: 1fr;
+     margin-bottom: 4rem;
+   }
 
   .numbers-strip__divider {
     display: none;
@@ -1398,9 +1398,7 @@ body:hover .cursor { opacity: 1; }
   }
   .btn { width: 100%; justify-content: center; }
 
-  .numbers-strip {
-    grid-template-columns: 1fr 1fr;
-  }
+
 }
 /* ============================================
    RESPONSIVE REFINEMENTS (No layout changes)
