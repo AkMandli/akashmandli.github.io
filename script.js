@@ -8,7 +8,7 @@
 // ============================================================
 // ⚠️  PASTE YOUR GOOGLE APPS SCRIPT URL HERE AFTER DEPLOYING
 // ============================================================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyC0hm2ov3w1EQgsAlqTL_7-Cim-T_OnGm0lwxon1KagNraYQFlJwvgQJQ80q_6vN9O/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyf-880V9CgDjIc4li8Ti3EenVY4XUsiyaeFG8RUjIVKps0tsIjBmHQsElX-w0BEl9/exec";
 // Example: "https://script.google.com/macros/s/AKfycb.../exec"
 // ============================================================
 
@@ -239,10 +239,37 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // ============ CONTACT FORM → GOOGLE APPS SCRIPT ============
+  // ============ CONTACT FORM → GOOGLE APPS SCRIPT (iframe method) ============
+  // Uses a hidden iframe instead of fetch — completely bypasses CORS.
+  // The browser makes a native form POST; we never try to read the cross-origin response.
   const contactForm = document.getElementById('contactForm');
 
   if (contactForm) {
+
+    // Create a hidden iframe — it silently receives the Apps Script response
+    const iframe       = document.createElement('iframe');
+    iframe.name        = 'hidden_iframe';
+    iframe.id          = 'hidden_iframe';
+    iframe.style.cssText = 'display:none;width:0;height:0;border:none;';
+    document.body.appendChild(iframe);
+
+    // Point the form directly at Apps Script, targeting the hidden iframe
+    contactForm.setAttribute('action',  SCRIPT_URL);
+    contactForm.setAttribute('method',  'POST');
+    contactForm.setAttribute('target',  'hidden_iframe');
+
+    // Flag so the iframe load event only fires after a real submit
+    let formSubmitted = false;
+
+    // When the hidden iframe loads after submission → show success
+    iframe.addEventListener('load', () => {
+      if (!formSubmitted) return;
+      formSubmitted = false;
+      const btn = contactForm.querySelector('.btn--primary');
+      showFormResult(btn, 'success', '✓ Message Sent!');
+      contactForm.reset();
+      showThankYouBanner(contactForm);
+    });
 
     // Input focus label highlight
     contactForm.querySelectorAll('input, select, textarea').forEach(input => {
@@ -257,52 +284,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Form submit handler
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    contactForm.addEventListener('submit', (e) => {
 
+      // Block if URL not configured
+      if (SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL") {
+        e.preventDefault();
+        const btn = contactForm.querySelector('.btn--primary');
+        showFormResult(btn, 'error', '⚠️ Script URL not configured yet.');
+        return;
+      }
+
+      // Manual validation
+      const name    = contactForm.querySelector('#name').value.trim();
+      const email   = contactForm.querySelector('#email').value.trim();
+      const message = contactForm.querySelector('#message').value.trim();
+
+      if (!name || !email || !message) {
+        e.preventDefault();
+        const btn = contactForm.querySelector('.btn--primary');
+        showFormResult(btn, 'error', '⚠️ Please fill all required fields.');
+        return;
+      }
+
+      // Show loading state
       const btn     = contactForm.querySelector('.btn--primary');
       const spinner = createSpinner();
-
-      // UI: Loading state
       btn.disabled      = true;
       btn.style.opacity = '0.8';
       btn.innerHTML     = '';
       btn.appendChild(spinner);
       btn.appendChild(document.createTextNode(' Sending...'));
 
-      // Collect form data
-      const formData = {
-        name:    contactForm.querySelector('#name').value.trim(),
-        email:   contactForm.querySelector('#email').value.trim(),
-        type:    contactForm.querySelector('#type').value || 'Not specified',
-        message: contactForm.querySelector('#message').value.trim(),
-      };
+      // Mark as submitted
+      formSubmitted = true;
 
-      // Warn if URL not set yet
-      if (SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL") {
-        showFormResult(btn, 'error', '⚠️ Script URL not configured yet.');
-        return;
-      }
-
-      try {
-        // Google Apps Script requires URLSearchParams (not JSON) to avoid CORS preflight errors
-        await fetch(SCRIPT_URL, {
-          method:  'POST',
-          mode:    'no-cors',   // Required for Google Apps Script — response will be opaque
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body:    new URLSearchParams(formData),
-        });
-
-        // With no-cors we can't read the response, but if fetch didn't throw, it reached the server
+      // Fallback timeout — some browsers skip the iframe load event for cross-origin
+      // If no response after 6 seconds, assume success (data already sent to server)
+      setTimeout(() => {
+        if (!formSubmitted) return;
+        formSubmitted = false;
         showFormResult(btn, 'success', '✓ Message Sent!');
         contactForm.reset();
         showThankYouBanner(contactForm);
+      }, 6000);
 
-      } catch (err) {
-        console.error('Form error:', err);
-        showFormResult(btn, 'error', '✗ Network error.');
-        showFallbackLink(contactForm, buildMailtoFallback(formData));
-      }
+      // DO NOT call e.preventDefault() — let the native form submit to the iframe
     });
   }
 
