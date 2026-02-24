@@ -8,7 +8,7 @@
 // ============================================================
 // ⚠️  PASTE YOUR GOOGLE APPS SCRIPT URL HERE AFTER DEPLOYING
 // ============================================================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlmZWGCCneuulysSI4DtWz9uJx21_jgkJlLQrRH6AjvFcvIrGBmt2ex7iPX7-JV3WM/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyC0hm2ov3w1EQgsAlqTL_7-Cim-T_OnGm0lwxon1KagNraYQFlJwvgQJQ80q_6vN9O/exec";
 // Example: "https://script.google.com/macros/s/AKfycb.../exec"
 // ============================================================
 
@@ -285,21 +285,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
-        const response = await fetch(SCRIPT_URL, {
+        // Google Apps Script requires URLSearchParams (not JSON) to avoid CORS preflight errors
+        await fetch(SCRIPT_URL, {
           method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify(formData),
+          mode:    'no-cors',   // Required for Google Apps Script — response will be opaque
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body:    new URLSearchParams(formData),
         });
 
-        const result = await response.json();
-
-        if (result.status === 'success') {
-          showFormResult(btn, 'success', '✓ Message Sent!');
-          contactForm.reset();
-          showThankYouBanner(contactForm);
-        } else {
-          showFormResult(btn, 'error', '✗ Something went wrong. Try again.');
-        }
+        // With no-cors we can't read the response, but if fetch didn't throw, it reached the server
+        showFormResult(btn, 'success', '✓ Message Sent!');
+        contactForm.reset();
+        showThankYouBanner(contactForm);
 
       } catch (err) {
         console.error('Form error:', err);
