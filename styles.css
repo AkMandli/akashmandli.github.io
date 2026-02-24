@@ -636,38 +636,44 @@ body:hover .cursor { opacity: 1; }
   gap: 0.5rem;
   margin-top: 2rem;
 }
-/* ---------- Tool Carousel ---------- */
-/* Carousel container */
+.tools {
+  padding: 4rem 2rem;
+  background-color: #0F1F3D;
+  color: #fff;
+}
+
+.tools__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
 .tools__carousel {
-  display: flex;            /* horizontal row */
-  flex-wrap: nowrap;        /* no wrapping to next line */
-  overflow-x: auto;         /* horizontal scroll */
-  gap: 1rem;
-  padding: 1rem 0;
-  scroll-behavior: smooth;
+  overflow: hidden;
+  position: relative;
 }
 
-/* Each item */
-.tools__item {
+.tools__track {
   display: flex;
-  flex-direction: column;   /* logo on top, text below */
-  align-items: center;      /* center horizontally */
-  flex: 0 0 auto;           /* prevent shrinking */
+  gap: 2rem;
+  animation: scrollTools 20s linear infinite;
 }
 
-/* Logo */
-.tools__logo {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
+.tools__item {
+  flex: 0 0 auto;
+  width: 100px;
+  text-align: center;
+}
+
+.tools__item img {
+  width: 48px;
+  height: 48px;
   margin-bottom: 0.5rem;
 }
 
-/* Tool name */
-.tools__name {
-  font-size: 0.8rem;
-  text-align: center;
-  white-space: nowrap; /* prevents text wrapping */
+.tools__item span {
+  display: block;
+  font-size: 0.85rem;
+  white-space: nowrap;
 }
 
 /* Infinite auto-scroll animation */
