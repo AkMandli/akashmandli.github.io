@@ -649,15 +649,6 @@ body:hover .cursor { opacity: 1; }
 <!--} -->
 
 
-.tools__container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 2rem 0 3rem; /* Controlled tight padding — no double-stacking with about__container */
-  overflow: hidden;
-}
-
-
-
 .tools__header {
   max-width: 560px; /* Matches .services__header and .process__header */
   margin-bottom: 3rem;
@@ -1546,6 +1537,7 @@ body:hover .cursor { opacity: 1; }
 @media (max-width: 1200px) {
   .hero__container,
   .about__container,
+  .tools__container,
   .services__container,
   .process__container,
   .contact__container,
