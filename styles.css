@@ -644,9 +644,8 @@ body:hover .cursor { opacity: 1; }
 
 /* Ensure the Tools section matches the About section alignment */
 .tools__container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 2rem; /* Matches .about__container */
+  width: 100%;
+  padding: 0; /* Removed to prevent double-padding inside .about__container */
 }
 
 .tools__header {
