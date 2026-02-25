@@ -11,6 +11,9 @@
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3SAEeYUd_85KpyhWUK3NU9pjPTywqO-yYRSDYBa7VlzsBNyqn92AlSCyVS5VcKfKV/exec";
 // Example: "https://script.google.com/macros/s/AKfycb.../exec"
 // ============================================================
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const carousel = document.querySelector(".tools__carousel");
   let isDown = false;
@@ -24,7 +27,22 @@ document.addEventListener("DOMContentLoaded", () => {
     startX = e.pageX - carousel.offsetLeft;
     scrollLeft = carousel.scrollLeft;
   });
+   
+// Function to handle the infinite carousel cloning
+const initToolsCarousel = () => {
+  const track = document.getElementById('tools-track');
+  if (!track) return;
 
+  // 1. Get the original set of items
+  const items = track.innerHTML;
+
+  // 2. Clone them once (Set 1 + Set 2)
+  // This matches the CSS translateX(-50%) logic to remove the jerk
+  track.innerHTML = items + items;
+};
+
+// Initialize when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initToolsCarousel);
   // Mouse leave / up
   carousel.addEventListener("mouseleave", () => {
     isDown = false;
