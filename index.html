@@ -743,7 +743,11 @@
       </div>
     </div>
   </footer>
-
+  const track = document.getElementById('tools-track');
+  const trackContent = track.innerHTML;
+  
+  // Duplicate the content inside the track
+  track.innerHTML = trackContent + trackContent;
   <script src="script.js"></script>
 </body>
 </html>
