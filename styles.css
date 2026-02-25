@@ -646,12 +646,9 @@ body:hover .cursor { opacity: 1; }
 .tools__container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--section-padding); /* Uses the same vertical/horizontal padding as About */
-  padding-top: 0; /* Prevents double padding if right after About */
+  padding: var(--section-padding); /* restore full padding since it's now standalone */
   overflow: hidden;
 }
-
-
 
 .tools__header {
   max-width: 560px; /* Matches .services__header and .process__header */
