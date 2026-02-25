@@ -670,49 +670,35 @@ body:hover .cursor { opacity: 1; }
 }
 
 .tools__carousel {
-  overflow-x: auto; /* Allows manual dragging/swiping */
-  overflow-y: hidden;
-  display: flex;
-  scrollbar-width: none; /* Hides scrollbar on Firefox */
-}
-
-.tools__carousel::-webkit-scrollbar {
-  display: none; /* Hides scrollbar on Chrome/Safari */
-}
-
-.tools__track {
-  display: flex;
-  gap: 2rem;
-  width: max-content;
-  /* Use 'infinite' but make sure the keyframes match the triple width */
-  animation: scrollContinuous 40s linear infinite;
-}
-
-@keyframes scrollContinuous {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    /* We move by 1/3 because we have 3 sets of items now */
-    transform: translateX(-33.33%);
-  }
+  overflow: hidden; /* Hide the overflow */
+  width: 100%;
+  position: relative;
+  /* This creates a soft fade on the edges so logos don't 'pop' in/out */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .tools__track {
   display: flex;
-  width: max-content; /* Important: prevents items from squeezing */
-  gap: 2rem;
-  animation: scroll 30s linear infinite;
+  width: max-content; 
+  gap: 3rem; /* Increased gap for better readability */
+  animation: scrollSeamless 30s linear infinite;
+  will-change: transform; /* Helps browser render smoothly */
 }
-@keyframes scroll {
+
+@keyframes scrollSeamless {
   from {
     transform: translateX(0);
   }
   to {
-    /* Since JS doubled the content, -50% takes us 
-       exactly to the start of the second set */
+    /* This MUST be -50% because we are doubling the items in JS */
     transform: translateX(-50%);
   }
+}
+
+/* Pause on hover */
+.tools__track:hover {
+  animation-play-state: paused;
 }
 
 /* Pause the animation on hover so users can read the tools */
