@@ -536,7 +536,7 @@ body:hover .cursor { opacity: 1; }
 .about__container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: var(--section-padding);
 }
 
 /* Numbers Strip */
@@ -642,12 +642,13 @@ body:hover .cursor { opacity: 1; }
 <!--   padding: 0 2rem; -->
 <!--} -->
 
-/* Ensure the Tools section matches the About section alignment */
+
 .tools__container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 2rem;
-  overflow: hidden; /* This clips the long track to the width of the screen */
+  padding: var(--section-padding); /* Uses the same vertical/horizontal padding as About */
+  padding-top: 0; /* Prevents double padding if right after About */
+  overflow: hidden;
 }
 
 
