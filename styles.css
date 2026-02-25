@@ -706,11 +706,13 @@ body:hover .cursor { opacity: 1; }
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-.tools__item img {
+.tools__item img, 
+.tools__item svg {
   width: 64px;
   height: 64px;
   object-fit: contain;
   display: block;
+  flex-shrink: 0; /* Prevents the logo from squishing */
 }
 
 .tools__item span {
