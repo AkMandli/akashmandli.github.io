@@ -533,7 +533,8 @@ body:hover .cursor { opacity: 1; }
   background: var(--navy);
 }
 
-.about__container {
+.about__container,
+.tools__container{
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--section-padding);
