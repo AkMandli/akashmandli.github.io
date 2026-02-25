@@ -644,9 +644,13 @@ body:hover .cursor { opacity: 1; }
 
 /* Ensure the Tools section matches the About section alignment */
 .tools__container {
-  padding: 0 2rem; /* Ensure this matches your "About Me" padding */
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
   overflow: hidden; /* This clips the long track to the width of the screen */
 }
+
+
 
 .tools__header {
   max-width: 560px; /* Matches .services__header and .process__header */
