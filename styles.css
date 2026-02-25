@@ -592,7 +592,8 @@ body:hover .cursor { opacity: 1; }
   align-self: stretch;
 }
 
-.about__body {
+.about__body,
+.tools__body{
   padding-top: 3rem;
 }
 
