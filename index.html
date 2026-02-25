@@ -743,11 +743,20 @@
       </div>
     </div>
   </footer>
-  const track = document.getElementById('tools-track');
-  const trackContent = track.innerHTML;
-  
-  // Duplicate the content inside the track
-  track.innerHTML = trackContent + trackContent;
+ const track = document.getElementById('tools-track');
+const items = track.innerHTML;
+
+    // 1. Triple the items to allow infinite dragging in both directions
+    track.innerHTML = items + items + items;
+    
+    // 2. Start the scroll position in the middle set of items
+    // This ensures that when the page loads, there is content to the left
+    const scrollMiddle = () => {
+      const itemWidth = track.scrollWidth / 3;
+      track.parentElement.scrollLeft = itemWidth;
+    };
+    
+    window.addEventListener('load', scrollMiddle);
   <script src="script.js"></script>
 </body>
 </html>
