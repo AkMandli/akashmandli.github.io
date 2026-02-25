@@ -672,16 +672,31 @@ body:hover .cursor { opacity: 1; }
 
 .tools__carousel {
   overflow: hidden;
-  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .tools__track {
   display: flex;
-  align-items: center;
+  width: max-content; /* Important: prevents items from squeezing */
   gap: 2rem;
-  animation: scrollTools 20s linear infinite;
+  animation: scroll 30s linear infinite;
+}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Since JS doubled the content, -50% takes us 
+       exactly to the start of the second set */
+    transform: translateX(-50%);
+  }
 }
 
+/* Pause the animation on hover so users can read the tools */
+.tools__track:hover {
+  animation-play-state: paused;
+}
 .tools__item {
   flex: 0 0 140px;               /* Equal card width */
   background: #162A4F;           /* Slightly lighter than bg */
