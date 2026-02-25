@@ -548,7 +548,7 @@ body:hover .cursor { opacity: 1; }
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  margin-bottom: 6rem;
+  margin-bottom: 2.5rem;
 }
 
 .numbers-strip__item {
@@ -590,6 +590,10 @@ body:hover .cursor { opacity: 1; }
   width: 1px;
   background: var(--border);
   align-self: stretch;
+}
+
+.about__body {
+  padding-top: 3rem;
 }
 
 .about__label {
@@ -646,9 +650,11 @@ body:hover .cursor { opacity: 1; }
 .tools__container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--section-padding); /* restore full padding since it's now standalone */
+  padding: 2rem 0 3rem; /* Controlled tight padding — no double-stacking with about__container */
   overflow: hidden;
 }
+
+
 
 .tools__header {
   max-width: 560px; /* Matches .services__header and .process__header */
