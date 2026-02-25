@@ -646,6 +646,7 @@ body:hover .cursor { opacity: 1; }
 .tools__container {
   width: 100%;
   padding: 0; /* Removed to prevent double-padding inside .about__container */
+  margin-bottom: 6rem;
 }
 
 .tools__header {
