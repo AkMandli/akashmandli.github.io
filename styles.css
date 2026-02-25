@@ -694,7 +694,10 @@ body:hover .cursor { opacity: 1; }
   transition: all 0.3s ease;
   border: 1px solid rgba(255,255,255,0.05);
 }
-
+.tools__heading em {
+  font-style: italic;
+  color: var(--teal);
+}
 /* Hover effect */
 .tools__item:hover {
   transform: translateY(-6px);
