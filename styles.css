@@ -637,8 +637,9 @@ body:hover .cursor { opacity: 1; }
   margin-top: 2rem;
 }
 .tools {
-   padding: var(--section-padding);
-   background: var(--navy);
+   max-width: var(--max-width);
+   margin: 0 auto;
+   padding: 0 2rem;
 }
 
 .tools__carousel {
