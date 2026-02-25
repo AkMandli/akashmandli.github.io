@@ -15,32 +15,68 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3SAEeYUd_85KpyhWUK
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  const carousel = document.querySelector(".tools__carousel");
-  let isDown = false;
-  let startX;
-  let scrollLeft;
+  // --- 1. INFINITE TOOLS CAROUSEL ---
+  const initToolsCarousel = () => {
+    // Select by class to match your CSS or ID if you prefer
+    const track = document.querySelector('.tools__track');
+    
+    if (!track) return;
 
-  // Mouse down
-  carousel.addEventListener("mousedown", (e) => {
-    isDown = true;
-    carousel.classList.add("active");
-    startX = e.pageX - carousel.offsetLeft;
-    scrollLeft = carousel.scrollLeft;
-  });
-   
-// Function to handle the infinite carousel cloning
-const initToolsCarousel = () => {
-  const track = document.getElementById('tools-track');
-  if (!track) return;
+    // Capture the original set of tool items
+    const originalItems = track.innerHTML;
 
-  // 1. Get the original set of items
-  const items = track.innerHTML;
+    // Clone the items (Set 1 + Set 2)
+    // This allows the CSS translateX(-50%) to loop without a gap
+    track.innerHTML = originalItems + originalItems;
 
-  // 2. Clone them once (Set 1 + Set 2)
-  // This matches the CSS translateX(-50%) logic to remove the jerk
-  track.innerHTML = items + items;
-};
+    // Optional: Adjust speed based on number of items
+    // (Total items / 2) * 3 seconds per item for a steady pace
+    const itemCount = track.children.length / 2;
+    track.style.animationDuration = `${itemCount * 3}s`;
+  };
 
+  // --- 2. REVEAL ON SCROLL ---
+  const initScrollReveal = () => {
+    const reveals = document.querySelectorAll('.reveal');
+    
+    const revealCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Only reveal once
+        }
+      });
+    };
+
+    const revealObserver = new IntersectionObserver(revealCallback, {
+      threshold: 0.15
+    });
+
+    reveals.forEach(el => revealObserver.observe(el));
+  };
+
+  // --- 3. CUSTOM CURSOR LOGIC ---
+  const initCustomCursor = () => {
+    const cursor = document.querySelector('.cursor');
+    const follower = document.querySelector('.cursor-follower');
+
+    if (!cursor || !follower) return;
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      
+      // Follower has a slight delay via CSS transitions
+      follower.style.left = e.clientX + 'px';
+      follower.style.top = e.clientY + 'px';
+    });
+  };
+
+  // Initialize all functions
+  initToolsCarousel();
+  initScrollReveal();
+  initCustomCursor();
+});
 // Initialize when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', initToolsCarousel);
   // Mouse leave / up
