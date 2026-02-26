@@ -1971,7 +1971,7 @@ a.case-card:hover .case-card__arrow { color: var(--teal); transform: translate(3
 }
 .all-cases__container { max-width: var(--max-width); margin: 0 auto; }
 
-Industry group 
+/*Industry group */ 
 .industry-group__label {
   display: inline-flex;
   align-items: center;
