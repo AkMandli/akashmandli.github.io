@@ -498,6 +498,54 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
+// ============ CASE STUDY FILTER (case-studies.html) ============
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  if (filterBtns.length) {
+    const caseCards    = document.querySelectorAll('.case-card[data-category]');
+    const industryGrps = document.querySelectorAll('.industry-group[data-group]');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        if (filter === 'all') {
+          caseCards.forEach(c => c.classList.remove('hidden'));
+          industryGrps.forEach(g => g.style.display = '');
+        } else {
+          caseCards.forEach(c => c.classList.toggle('hidden', c.getAttribute('data-category') !== filter));
+          industryGrps.forEach(g => {
+            const matches = g.getAttribute('data-group').split(' ').includes(filter);
+            g.style.display = matches ? '' : 'none';
+          });
+        }
+      });
+    });
+  }
+
+  // ============ CASE STUDY HERO COUNTERS (case-study-*.html) ============
+  const csMetrics = document.querySelectorAll('.cs-metric__num[data-target]');
+  if (csMetrics.length) {
+    const csObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute('data-target'));
+          const startTime = performance.now();
+          const duration  = 1600;
+          function tick(now) {
+            const p = Math.min((now - startTime) / duration, 1);
+            el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target);
+            if (p < 1) requestAnimationFrame(tick);
+            else el.textContent = target;
+          }
+          requestAnimationFrame(tick);
+          csObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    csMetrics.forEach(m => csObserver.observe(m));
+  }
+
   console.log('%c Akash Mandli Portfolio ', 'background: #00C9B1; color: #0F1F3D; font-family: monospace; font-size: 14px; font-weight: bold; padding: 4px 8px; border-radius: 4px;');
   console.log('%c Built with precision. Like my BRDs. ', 'color: #00C9B1; font-family: monospace; font-size: 11px;');
 
