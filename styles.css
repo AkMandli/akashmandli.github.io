@@ -1972,7 +1972,7 @@ a.case-card:hover .case-card__arrow { color: var(--teal); transform: translate(3
 .all-cases__container { max-width: var(--max-width); margin: 0 auto; }
 
 Industry group 
-.industry-group {
+.industry-group__label {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -1982,8 +1982,8 @@ Industry group
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-bottom: 0.6rem;
 }
+
 .case-card--featured .case-card__title { font-size: 1.8rem; }
 .case-card__featured-right {
   border-left: 1px solid var(--border);
