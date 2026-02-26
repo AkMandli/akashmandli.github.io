@@ -100,7 +100,8 @@ ul { list-style: none; }
 body:hover .cursor { opacity: 1; }
 
 /* ---------- Typography ---------- */
-.section-label {
+.section-label, 
+.industry-group__label {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -1971,7 +1972,7 @@ a.case-card:hover .case-card__arrow { color: var(--teal); transform: translate(3
 }
 .all-cases__container { max-width: var(--max-width); margin: 0 auto; }
 
-/* Industry group */
+/* Industry group 
 .industry-group { margin-bottom: 4rem; }
 .industry-group__label {
   display: flex;
@@ -1981,7 +1982,7 @@ a.case-card:hover .case-card__arrow { color: var(--teal); transform: translate(3
 }
 .industry-group__label span {
   padding: 2.5rem 3rem;
-}
+} */
 .case-card--featured .case-card__title { font-size: 1.8rem; }
 .case-card__featured-right {
   border-left: 1px solid var(--border);
