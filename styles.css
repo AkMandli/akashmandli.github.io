@@ -2943,3 +2943,56 @@ a.article-card:hover .article-card__cta { color: var(--amber); }
   .art-limit { grid-template-columns: 1fr; }
 }
 
+/* ============================================
+   ARTICLE ILLUSTRATION — art-hero__illustration
+   ============================================ */
+.art-hero__illustration {
+  margin-top: 3.5rem;
+  position: relative;
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--navy-deep);
+}
+.art-hero__illustration svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* SVG keyframes for the illustration */
+@keyframes ail-rotate    { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+@keyframes ail-rotate-r  { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
+@keyframes ail-pulse     { 0%,100% { opacity:.5; transform:scale(1);   } 50% { opacity:1; transform:scale(1.08); } }
+@keyframes ail-pulse-inv { 0%,100% { opacity:.8; transform:scale(1);   } 50% { opacity:.35; transform:scale(.95); } }
+@keyframes ail-blink     { 0%,100% { opacity:.25; } 50% { opacity:1; } }
+@keyframes ail-blink-fast{ 0%,100% { opacity:.4;  } 50% { opacity:1; } }
+@keyframes ail-flow      { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -28; } }
+@keyframes ail-flow-r    { from { stroke-dashoffset: 0; } to { stroke-dashoffset:  28; } }
+@keyframes ail-float     { 0%,100% { transform: translateY(0);   } 50% { transform: translateY(-7px); } }
+@keyframes ail-float-2   { 0%,100% { transform: translateY(0);   } 50% { transform: translateY( 5px); } }
+@keyframes ail-crackle   { 0%,100% { opacity:.55; } 25% { opacity:.9; } 60% { opacity:.35; } 80% { opacity:.8; } }
+@keyframes ail-scan      { 0% { opacity:0; transform:rotate(-35deg); } 50%{ opacity:.5; } 100%{ opacity:0; transform:rotate(35deg); } }
+@keyframes ail-data-flow { 0% { stroke-dashoffset:60; opacity:0; } 40%{ opacity:1; } 100%{ stroke-dashoffset:0; opacity:0; } }
+
+.ail-rot-slow  { animation: ail-rotate   38s linear infinite; }
+.ail-rot-med   { animation: ail-rotate   18s linear infinite; }
+.ail-rot-fast  { animation: ail-rotate    9s linear infinite; }
+.ail-rot-rev   { animation: ail-rotate-r 28s linear infinite; }
+.ail-pulse-a   { animation: ail-pulse   2.8s ease-in-out infinite; }
+.ail-pulse-t   { animation: ail-pulse   3.2s ease-in-out infinite; }
+.ail-pulse-inv { animation: ail-pulse-inv 2s ease-in-out infinite; }
+.ail-blink     { animation: ail-blink   2.2s ease-in-out infinite; }
+.ail-blink-f   { animation: ail-blink-fast 1s ease-in-out infinite; }
+.ail-flow-a    { animation: ail-flow    2.4s linear infinite; }
+.ail-flow-t    { animation: ail-flow-r  2.4s linear infinite; }
+.ail-float     { animation: ail-float   4.5s ease-in-out infinite; }
+.ail-float-2   { animation: ail-float-2 3.8s ease-in-out infinite; }
+.ail-crackle   { animation: ail-crackle 1.6s ease-in-out infinite; }
+.ail-scan      { animation: ail-scan    3s ease-in-out infinite alternate; transform-origin: 0 0; }
+.ail-data-flow { animation: ail-data-flow 3s ease-in-out infinite; }
+
+@media (max-width: 768px) {
+  .art-hero__illustration { margin-top: 2.5rem; }
+}
