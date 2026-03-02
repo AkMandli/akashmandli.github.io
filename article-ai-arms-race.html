@@ -670,7 +670,29 @@
             <span class="art-sidebar__row-val">~8 minutes</span>
           </div>
         </div>
-
+<!-- View Stats -->
+        <div class="art-stats-card reveal" id="viewStatsCard">
+          <h4>Article Stats</h4>
+          <div class="art-stats-card__main">
+            <div class="art-stats-card__big">
+              <span class="vc-num-big" id="viewNumBig">—</span>
+            </div>
+            <div class="art-stats-card__label-stack">
+              <span class="art-stats-card__label">Total Reads</span>
+              <span class="art-stats-card__sublabel">Since Jan 2026</span>
+            </div>
+          </div>
+          <div class="art-stats-card__bar-wrap">
+            <div class="art-stats-card__bar" id="viewBar"></div>
+          </div>
+          <div class="art-stats-card__footer">
+            <div class="art-stats-card__live">
+              <span class="vc-dot"></span>
+              <span>Live counter</span>
+            </div>
+            <span id="viewSession" style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.06em;color:var(--text-muted);">YOUR VISIT: COUNTED</span>
+          </div>
+        </div>
         <!-- Topics -->
         <div class="art-sidebar__card reveal">
           <h4>Topics Covered</h4>
@@ -735,6 +757,94 @@
   </footer>
 
   <script src="script.js"></script>
+<script>
+  /* ============================================================
+     ARTICLE VIEW COUNTER
+     Uses CounterAPI (counterapi.dev) — free, no signup needed.
+     Debounced with localStorage: counts once per 24 hrs per browser.
+     Falls back gracefully if the API is unreachable.
+  ============================================================ */
+  (function() {
+    const ARTICLE_KEY  = 'ai-arms-race';
+    const NAMESPACE    = 'akashmandli-portfolio';
+    const LS_KEY       = 'art_view_' + ARTICLE_KEY;
+    const MILESTONE    = 1000; // bar fills at 1000 reads
+
+    const chip         = document.getElementById('viewChip');
+    const numBig       = document.getElementById('viewNumBig');
+    const bar          = document.getElementById('viewBar');
+    const sessionLabel = document.getElementById('viewSession');
+    const chipNum      = chip ? chip.querySelector('.vc-num') : null;
+
+    /* Format: 1234 → "1,234", 12345 → "12.3K" */
+    function fmt(n) {
+      if (n >= 10000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+      return n.toLocaleString();
+    }
+
+    /* Smooth count-up animation */
+    function countUp(el, target, duration) {
+      if (!el) return;
+      const start = performance.now();
+      const from  = 0;
+      function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        const val  = Math.round(from + (target - from) * ease);
+        el.textContent = fmt(val);
+        if (p < 1) requestAnimationFrame(tick);
+        else { el.textContent = fmt(target); el.classList.add('vc-pop'); }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    /* Render count into all elements */
+    function render(count, alreadyCounted) {
+      countUp(chipNum,  count, 1200);
+      countUp(numBig,   count, 1600);
+
+      /* Bar: fill proportionally up to MILESTONE */
+      if (bar) {
+        const pct = Math.min((count / MILESTONE) * 100, 100);
+        setTimeout(() => { bar.style.width = pct + '%'; }, 200);
+      }
+
+      /* Session label */
+      if (sessionLabel) {
+        sessionLabel.textContent = alreadyCounted
+          ? 'YOUR VISIT: LOGGED'
+          : 'YOUR VISIT: COUNTED';
+      }
+
+      /* Reveal chip */
+      if (chip) chip.classList.add('ready');
+    }
+
+    /* Debounce: only hit the increment endpoint once per 24hrs */
+    const now         = Date.now();
+    const lastVisit   = parseInt(localStorage.getItem(LS_KEY) || '0', 10);
+    const alreadySeen = (now - lastVisit) < 86400000; // 24 hours
+
+    const endpoint = alreadySeen
+      ? `https://api.counterapi.dev/v1/${NAMESPACE}/${ARTICLE_KEY}/get`
+      : `https://api.counterapi.dev/v1/${NAMESPACE}/${ARTICLE_KEY}/up`;
+
+    fetch(endpoint)
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(data => {
+        const count = data.count || data.value || 0;
+        if (!alreadySeen) localStorage.setItem(LS_KEY, String(now));
+        render(count, alreadySeen);
+      })
+      .catch(() => {
+        /* API unreachable — show placeholder gracefully */
+        if (chipNum) chipNum.textContent = '—';
+        if (numBig)  numBig.textContent  = '—';
+        if (chip)    chip.classList.add('ready');
+        if (sessionLabel) sessionLabel.textContent = 'COUNTER OFFLINE';
+      });
+  })();
+  </script>
 
   <!-- Reading progress bar -->
   <style>
@@ -763,6 +873,5 @@
       }, { passive: true });
     });
   </script>
-
 </body>
 </html>
