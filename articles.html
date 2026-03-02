@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRR8VRF05K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LRR8VRF05K');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Articles by Akash Mandli — Perspectives on AI, business analysis, technology strategy, and the decisions shaping the industry." />
+  <meta property="og:title" content="Articles — Akash Mandli" />
+  <meta property="og:description" content="Beyond the brief. Perspectives on AI, technology strategy, and the decisions shaping the industry." />
+  <title>Articles — Akash Mandli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300&family=Epilogue:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav__container">
+      <a href="index.html" class="nav__logo">
+        <span class="nav__logo-mark">AM</span>
+        <span class="nav__logo-text">Akash Mandli</span>
+      </a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="index.html#about"    class="nav__link">About</a></li>
+        <li><a href="index.html#services" class="nav__link">Services</a></li>
+        <li><a href="index.html#process"  class="nav__link">Process</a></li>
+        <li><a href="case-studies.html"   class="nav__link">Work</a></li>
+        <li><a href="articles.html"       class="nav__link" style="color:var(--amber)">Articles</a></li>
+        <li><a href="index.html#contact"  class="nav__link nav__link--cta">Let's Talk</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero__container">
+      <a href="index.html" class="page-hero__back">← Back to Portfolio</a>
+      <span class="section-label" style="--label-color: var(--amber)">Latest Thinking</span>
+      <h1 class="page-hero__heading reveal" style="margin-top:0.75rem;">
+        Beyond the brief.<br/><em style="color:var(--amber)">Into the bigger picture.</em>
+      </h1>
+      <p class="page-hero__sub reveal">
+        Perspectives on AI, technology strategy, business analysis, and the decisions shaping the industry — written from a practitioner's lens.
+      </p>
+    </div>
+  </section>
+
+  <!-- ALL ARTICLES -->
+  <section class="articles-all">
+    <div class="articles-all__container">
+
+      <!-- Filters -->
+      <div class="articles-filters reveal">
+        <button class="filter-btn active" data-filter="all">All Topics</button>
+        <button class="filter-btn" data-filter="technology">Technology &amp; Security</button>
+        <button class="filter-btn" data-filter="analysis">Business Analysis</button>
+        <button class="filter-btn" data-filter="ai">AI &amp; Automation</button>
+        <button class="filter-btn" data-filter="presales">Pre-Sales</button>
+        <button class="filter-btn" data-filter="strategy">Strategy</button>
+      </div>
+
+      <!-- ── Technology & National Security ── -->
+      <div class="article-group" data-group="technology">
+        <div class="article-group__label">
+          <span>Technology &amp; National Security</span>
+          <div class="article-group__line"></div>
+        </div>
+        <div class="article-group__grid">
+
+          <!-- Article 1 — live -->
+          <a href="article-ai-arms-race.html" class="article-card article-card--featured reveal" data-category="technology">
+            <div class="article-card__eyebrow">
+              <span class="article-card__cat">Technology &amp; National Security</span>
+              <span class="article-card__dot">·</span>
+              <span class="article-card__date">January 2026</span>
+              <span class="article-card__dot">·</span>
+              <span class="article-card__read">8 min read</span>
+            </div>
+            <h3 class="article-card__title">The AI Arms Race: When the Pentagon and Silicon Valley's Ethics Collide</h3>
+            <p class="article-card__excerpt">The U.S. Department of War wants an AI military force with no restrictions. Companies like Anthropic are saying no — and the consequences could reshape modern warfare forever. An analysis of the January 2026 DoW AI Strategy memo.</p>
+            <div class="article-card__footer">
+              <span class="article-card__type">Analysis</span>
+              <span class="article-card__cta">Read Article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- ── Business Analysis ── -->
+      <div class="article-group" data-group="analysis">
+        <div class="article-group__label">
+          <span>Business Analysis</span>
+          <div class="article-group__line"></div>
+        </div>
+        <div class="article-group__grid">
+
+          <div class="article-card article-card--soon reveal" data-category="analysis">
+            <div class="article-card__eyebrow">
+              <span class="article-card__cat">Business Analysis</span>
+              <span class="article-card__dot">·</span>
+              <span class="article-card__date">Coming Soon</span>
+            </div>
+            <h3 class="article-card__title">Why Most BRDs Fail Before the First Sprint Even Starts</h3>
+            <p class="article-card__excerpt">The structural flaws that make requirements documents obsolete before development begins — and how to write them differently.</p>
+            <div class="article-card__footer">
+              <span class="article-card__type">Opinion</span>
+            </div>
+          </div>
+
+          <div class="article-card article-card--soon reveal" data-category="analysis">
+            <div class="article-card__eyebrow">
+              <span class="article-card__cat">Business Analysis</span>
+              <span class="article-card__dot">·</span>
+              <span class="article-card__date">Coming Soon</span>
+            </div>
+            <h3 class="article-card__title">Stakeholder Interviews Are Broken. Here's How to Fix Them.</h3>
+            <p class="article-card__excerpt">Why most discovery sessions produce noise instead of signal — and the five questions that change everything about how requirements surface.</p>
+            <div class="article-card__footer">
+              <span class="article-card__type">Guide</span>
+            </div>
+          </div>
+
+          <div class="article-card article-card--soon reveal" data-category="analysis">
+            <div class="article-card__eyebrow">
+              <span class="article-card__cat">Business Analysis</span>
+              <span class="article-card__dot">·</span>
+              <span class="article-card__date">Coming Soon</span>
+            </div>
+            <h3 class="article-card__title">The Scope Creep That No One Talks About</h3>
+            <p class="article-card__excerpt">The scope creep that kills projects isn't in the backlog — it's in the assumptions that never made it into the BRD in the first place.</p>
+            <div class="article-card__footer">
+              <span class="article-card__type">Perspective</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── AI & Automation ── -->
+      <div class="article-group" data-group="ai">
+        <div class="article-group__label">
+          <span>AI &amp; Automation</span>
+          <div class="article-group__line"></div>
+        </div>
+        <div class="article-group__grid">
+
+          <div class="article-card article-card--soon reveal" data-category="ai">
+            <div class="article-card__eyebrow">
+              <span class="article-card__cat">AI &amp; Automation</span>
+              <span class="article-card__dot">·</span>
+              <span class="article-card__date">Coming Soon</span>
+            </div>
+            <h3 class="article-card__title">The BA Who Doesn't Learn AI Will Be Replaced by the BA Who Does</h3>
+            <p class="article-card__excerpt">How AI tools are changing requirements gathering, stakeholder interviews, and documentation — and what that means for the profession.</p>
+            <div class="article-card__footer">
+              <span class="article-card__type">Perspective</span>
+            </div>
+          </div>
+
+          <div class="article-card article-card--soon reveal" data-category="ai">
+            <div class="article-card__eyebrow">
+              <span class="article-card__cat">AI &amp; Automation</span>
+              <span class="article-card__dot">·</span>
+              <span class="article-card__date">Coming Soon</span>
+            </div>
+            <h3 class="article-card__title">Prompt Engineering Is Not a Job Title. It's a Core Skill.</h3>
+            <p class="article-card__excerpt">Every BA in 2026 needs to know how to write a good prompt. Here's how to think about it in terms you already understand.</p>
+            <div class="article-card__footer">
+              <span class="article-card__type">Guide</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cs-next">
+    <div class="cs-next__container">
+      <span class="section-label" style="display:flex;justify-content:center;">Stay in the Loop</span>
+      <h2 class="cs-next__heading" style="font-family:var(--font-display);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:300;color:var(--white);margin:1rem 0 1.25rem;letter-spacing:-0.02em;line-height:1.2;">
+        Have a perspective to share?<br/><em style="color:var(--amber)">Let's debate it.</em>
+      </h2>
+      <p class="cs-next__sub" style="font-size:0.9rem;color:var(--text-dim);margin-bottom:2rem;line-height:1.75;">
+        If an article sparked a thought — agree or disagree — I'd genuinely like to hear it. Good ideas sharpen under pressure.
+      </p>
+      <div class="cs-next__btns">
+        <a href="index.html" class="btn btn--ghost">Back to Portfolio</a>
+        <a href="index.html#contact" class="btn btn--primary">Start a Conversation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__left">
+        <a href="index.html" class="footer__logo">
+          <span class="nav__logo-mark">AM</span>
+          Akash Mandli
+        </a>
+        <p class="footer__tagline">Turning complexity into clarity.</p>
+      </div>
+      <div class="footer__right">
+        <p class="footer__copy">© 2025 Akash Mandli. All rights reserved.</p>
+        <p class="footer__copy" style="opacity:0.4;font-size:0.75rem;margin-top:0.25rem;">Built with precision. Like my BRDs.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Article filter logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns  = document.querySelectorAll('.filter-btn');
+      const cards       = document.querySelectorAll('.article-card[data-category]');
+      const groups      = document.querySelectorAll('.article-group[data-group]');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.getAttribute('data-filter');
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          if (filter === 'all') {
+            cards.forEach(c => c.classList.remove('hidden'));
+            groups.forEach(g => g.style.display = '');
+          } else {
+            cards.forEach(c => c.classList.toggle('hidden', c.getAttribute('data-category') !== filter));
+            groups.forEach(g => {
+              g.style.display = g.getAttribute('data-group') === filter ? '' : 'none';
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
