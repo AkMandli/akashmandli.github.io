@@ -928,243 +928,43 @@
   </footer>
 
   <script src="script.js"></script>
-<!-- ============ CHAT LAUNCHER ============ -->
-  <div class="chat-launcher" id="chatLauncher" aria-label="Chat with Akash">
+ <!-- ============ CHAT WIDGET ============ -->
+  <!--
+    ARCHITECTURE:
+    1. Tawk_API is pre-configured BEFORE the script loads.
+       • widget is hidden immediately on load — no flash of green button.
+       • onChatMaximized / onChatMinimized hooks sync our UI.
+    2. Our branded panel is the ONLY thing visible to the visitor.
+    3. "Start Live Chat" closes our panel and opens Tawk's window.
+       Nothing is ever on screen at the same time.
+  -->
 
-    <!-- ── Preview panel ── -->
-    <div class="chat-launcher__panel" id="clPanel" role="dialog" aria-label="Chat preview">
-
-      <!-- Top bar: agent identity -->
-      <div class="clp-topbar">
-        <div class="clp-avatar">
-          <img src="chat-illustration.svg" alt="Akash Mandli" class="clp-avatar-img"/>
-          <span class="clp-avatar-dot"></span>
-        </div>
-        <div class="clp-info">
-          <div class="clp-info__name">Akash Mandli</div>
-          <div class="clp-info__role">BA &amp; Pre-Sales Strategist</div>
-          <div class="clp-info__status">
-            <span class="clp-info__status-dot"></span>
-            Online — usually replies in minutes
-          </div>
-        </div>
-        <button class="clp-close" id="clClose" aria-label="Close chat">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Messages area -->
-      <div class="clp-messages" id="clMessages">
-
-        <!-- Typing indicator — shows first -->
-        <div class="clp-typing" id="clTyping">
-          <img src="chat-illustration.svg" alt="" class="clp-msg__avatar"/>
-          <div class="clp-typing__dots" id="clDots">
-            <span></span><span></span><span></span>
-          </div>
-        </div>
-
-        <!-- Message 1 -->
-        <div class="clp-msg" id="clMsg1" style="display:none;">
-          <img src="chat-illustration.svg" alt="" class="clp-msg__avatar"/>
-          <div class="clp-msg__bubble" id="clBubble1">
-            Hey there 👋 I'm <strong>Akash</strong> — BA and Pre-Sales Strategist.
-          </div>
-        </div>
-
-        <!-- Message 2 -->
-        <div class="clp-msg" id="clMsg2" style="display:none;">
-          <img src="chat-illustration.svg" alt="" class="clp-msg__avatar"/>
-          <div class="clp-msg__bubble" id="clBubble2">
-            Got a project, a role, or just a question? I'm here and I respond fast.
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Action area -->
-      <div class="clp-actions">
-        <button class="clp-start-btn" id="clStartBtn">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
-          Start a Live Chat
-        </button>
-        <p class="clp-disclaimer">
-          Powered by <a href="https://www.tawk.to" target="_blank" rel="noopener">tawk.to</a>
-          &nbsp;·&nbsp; Free &amp; secure
-        </p>
-      </div>
-
-    </div>
-
-    <!-- ── Avatar launcher button ── -->
-    <button class="chat-launcher__btn" id="clBtn" aria-label="Open chat with Akash" aria-expanded="false">
-      <div class="chat-launcher__glow"></div>
-      <div class="chat-launcher__ring"></div>
-      <img src="chat-illustration.svg" alt="Chat with Akash" class="chat-launcher__avatar-img"/>
-      <span class="chat-launcher__badge" id="clBadge" aria-hidden="true">1</span>
-      <span class="chat-launcher__status-dot"></span>
-    </button>
-
-  </div>
-
+  <!-- Pre-configure Tawk BEFORE it loads so hideWidget fires on onLoad -->
   <script>
-  /* ── Chat Launcher Controller ── */
-  (function () {
-    var SEEN_KEY   = 'cl_panel_seen_v1';
-    var launcher   = document.getElementById('chatLauncher');
-    var btn        = document.getElementById('clBtn');
-    var panel      = document.getElementById('clPanel');
-    var closeBtn   = document.getElementById('clClose');
-    var startBtn   = document.getElementById('clStartBtn');
-    var badge      = document.getElementById('clBadge');
-    var typing     = document.getElementById('clTyping');
-    var dots       = document.getElementById('clDots');
-    var msg1el     = document.getElementById('clMsg1');
-    var msg2el     = document.getElementById('clMsg2');
-    var bubble1    = document.getElementById('clBubble1');
-    var bubble2    = document.getElementById('clBubble2');
-
-    var panelOpen  = false;
-    var chatStarted = false;
-    var msgSequenceDone = false;
-
-    /* ── Show launcher after 1.5s ── */
-    setTimeout(function () {
-      launcher.classList.add('ready');
-      btn.classList.add('visible');
-    }, 1500);
-
-    /* ── Auto-open panel once, after 4s (first visit only) ── */
-    if (!sessionStorage.getItem(SEEN_KEY)) {
-      setTimeout(function () {
-        if (!panelOpen) openPanel(true);
-      }, 4000);
-    }
-
-    /* ── Toggle on avatar click ── */
-    btn.addEventListener('click', function () {
-      if (panelOpen) closePanel(); else openPanel(false);
-    });
-
-    /* ── Close button ── */
-    closeBtn.addEventListener('click', closePanel);
-
-    /* ── Start Chat → hand off to Tawk.to ── */
-    startBtn.addEventListener('click', function () {
-      chatStarted = true;
-      /* Mark badge as seen */
-      badge.style.display = 'none';
-      sessionStorage.setItem(SEEN_KEY, '1');
-
-      /* Try Tawk.to API */
-      if (typeof Tawk_API !== 'undefined') {
-        try {
-          Tawk_API.showWidget();
-          Tawk_API.maximize();
-          closePanel();
-          return;
-        } catch(e) {}
-      }
-      /* Fallback: wait for Tawk then open */
-      var t = setInterval(function () {
-        if (typeof Tawk_API !== 'undefined' && Tawk_API.maximize) {
-          clearInterval(t);
-          Tawk_API.showWidget();
-          Tawk_API.maximize();
-          closePanel();
-        }
-      }, 400);
-    });
-
-    /* ── Tawk.to API: hide its default widget, hook events ── */
-    var hookTawk = setInterval(function () {
-      if (typeof Tawk_API !== 'undefined') {
-        clearInterval(hookTawk);
-        /* Hide Tawk default launcher — we're replacing it */
-        Tawk_API.onLoad = function () {
-          Tawk_API.hideWidget();
-        };
-        /* If chat window closed by user, show our button again */
-        Tawk_API.onChatMinimized = function () {
-          btn.classList.add('visible');
-          launcher.classList.add('ready');
-        };
-      }
-    }, 600);
-
-    /* ── Panel open / close ── */
-    function openPanel(auto) {
-      if (panelOpen) return;
-      panelOpen = true;
-      panel.style.display = 'block';
-      btn.setAttribute('aria-expanded', 'true');
-      /* Animate badge away */
-      badge.style.display = 'none';
-      sessionStorage.setItem(SEEN_KEY, '1');
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          panel.classList.add('animate');
-          panel.classList.add('open');
-        });
-      });
-      /* Run message sequence once */
-      if (!msgSequenceDone) runMessages();
-    }
-
-    function closePanel() {
-      if (!panelOpen) return;
-      panelOpen = false;
-      panel.classList.remove('animate');
-      btn.setAttribute('aria-expanded', 'false');
-      setTimeout(function () {
-        panel.classList.remove('open');
-        panel.style.display = 'none';
-      }, 350);
-    }
-
-    /* ── Staggered message reveal ── */
-    function runMessages() {
-      msgSequenceDone = true;
-      /* Show typing dots */
-      typing.style.display = 'flex';
-      setTimeout(function () { dots.classList.add('shown'); }, 100);
-
-      /* Replace dots with msg 1 */
-      setTimeout(function () {
-        typing.style.display = 'none';
-        msg1el.style.display = 'flex';
-        setTimeout(function () { bubble1.classList.add('shown'); }, 60);
-      }, 1600);
-
-      /* Show typing again briefly */
-      setTimeout(function () {
-        typing.style.display = 'flex';
-        dots.classList.add('shown');
-      }, 2400);
-
-      /* Replace with msg 2 */
-      setTimeout(function () {
-        typing.style.display = 'none';
-        msg2el.style.display = 'flex';
-        setTimeout(function () { bubble2.classList.add('shown'); }, 60);
-      }, 3800);
-    }
-
-    /* ── Close panel on outside click ── */
-    document.addEventListener('click', function (e) {
-      if (panelOpen && !launcher.contains(e.target)) closePanel();
-    });
-
-  })();
+  var Tawk_API = Tawk_API || {};
+  Tawk_API.onLoad = function () {
+    Tawk_API.hideWidget();          /* hide green bubble permanently */
+  };
+  Tawk_API.onChatMaximized = function () {
+    /* Tawk window is open — keep our launcher hidden */
+    var l = document.getElementById('chatLauncher');
+    if (l) l.style.visibility = 'hidden';
+  };
+  Tawk_API.onChatMinimized = function () {
+    /* Tawk window minimised — bring our launcher back */
+    var l = document.getElementById('chatLauncher');
+    if (l) l.style.visibility = 'visible';
+  };
+  Tawk_API.onChatEnded = function () {
+    var l = document.getElementById('chatLauncher');
+    if (l) l.style.visibility = 'visible';
+  };
   </script>
 
+  <!-- Tawk.to live chat (loads silently) -->
   <!--Start of Tawk.to Script-->
   <script type="text/javascript">
-  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  var Tawk_LoadStart=new Date();
   (function(){
   var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
   s1.async=true;
@@ -1175,5 +975,204 @@
   })();
   </script>
   <!--End of Tawk.to Script-->
+
+  <!-- Branded panel widget -->
+  <div class="chat-launcher" id="chatLauncher" aria-label="Chat with Akash">
+
+    <div class="chat-launcher__panel" id="clPanel" role="dialog" aria-label="Chat with Akash">
+
+      <!-- Header -->
+      <div class="clp-topbar">
+        <div class="clp-avatar">
+          <img src="chat-illustration.svg" alt="Akash Mandli" class="clp-avatar-img"/>
+          <span class="clp-avatar-dot"></span>
+        </div>
+        <div class="clp-info">
+          <div class="clp-info__name">Akash Mandli</div>
+          <div class="clp-info__role">BA &amp; Pre-Sales Strategist</div>
+          <div class="clp-info__online">
+            <span class="clp-info__online-dot"></span>
+            Online &mdash; replies fast
+          </div>
+        </div>
+        <button class="clp-close" id="clClose" aria-label="Close chat preview">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Agent messages -->
+      <div class="clp-messages" id="clMessages">
+        <div class="clp-typing" id="clTyping" style="display:none;">
+          <img src="chat-illustration.svg" alt="" class="clp-msg__avatar"/>
+          <div class="clp-typing__dots" id="clDots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="clp-msg" id="clMsg1" style="display:none;">
+          <img src="chat-illustration.svg" alt="" class="clp-msg__avatar"/>
+          <div class="clp-msg__bubble" id="clBubble1">
+            Hey &#128075; I'm <strong>Akash</strong> &mdash; BA &amp; Pre-Sales Strategist.
+          </div>
+        </div>
+        <div class="clp-msg" id="clMsg2" style="display:none;">
+          <img src="chat-illustration.svg" alt="" class="clp-msg__avatar"/>
+          <div class="clp-msg__bubble" id="clBubble2">
+            Got a project or a role in mind? Let&#39;s talk &mdash; I&#39;m available right now.
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="clp-actions" id="clActions">
+        <button class="clp-live-btn" id="clLiveBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          Start Live Chat
+        </button>
+        <p class="clp-fallback">
+          Prefer email? <a href="index.html#contact">Leave a message &rarr;</a>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Avatar launcher -->
+    <button class="chat-launcher__btn" id="clBtn" aria-label="Chat with Akash" aria-expanded="false">
+      <div class="chat-launcher__glow"></div>
+      <div class="chat-launcher__ring"></div>
+      <img src="chat-illustration.svg" alt="" class="chat-launcher__avatar-img"/>
+      <span class="chat-launcher__badge" id="clBadge">1</span>
+      <span class="chat-launcher__status-dot"></span>
+    </button>
+
+  </div>
+
+  <script>
+  (function () {
+    var SEEN_KEY = 'cl_seen_v4';
+    var launcher = document.getElementById('chatLauncher');
+    var btn      = document.getElementById('clBtn');
+    var panel    = document.getElementById('clPanel');
+    var badge    = document.getElementById('clBadge');
+    var closeBtn = document.getElementById('clClose');
+    var typing   = document.getElementById('clTyping');
+    var dots     = document.getElementById('clDots');
+    var msg1el   = document.getElementById('clMsg1');
+    var msg2el   = document.getElementById('clMsg2');
+    var bubble1  = document.getElementById('clBubble1');
+    var bubble2  = document.getElementById('clBubble2');
+    var actions  = document.getElementById('clActions');
+    var liveBtn  = document.getElementById('clLiveBtn');
+
+    var panelOpen = false;
+    var seqDone   = false;
+    var seen      = !!sessionStorage.getItem(SEEN_KEY);
+
+    /* ─── Show avatar button 1.5 s after load ─── */
+    setTimeout(function () {
+      launcher.classList.add('ready');
+      btn.classList.add('visible');
+    }, 1500);
+
+    /* ─── Auto-open panel once on first visit ─── */
+    if (!seen) {
+      setTimeout(function () { if (!panelOpen) openPanel(); }, 4000);
+    }
+
+    /* ─── If already seen, skip sequence and show CTA ─── */
+    if (seen) {
+      seqDone = true;
+      msg1el.style.display  = 'flex'; bubble1.classList.add('shown');
+      msg2el.style.display  = 'flex'; bubble2.classList.add('shown');
+      actions.classList.add('visible');
+    }
+
+    /* ─── Avatar toggle ─── */
+    btn.addEventListener('click', function () {
+      panelOpen ? closePanel() : openPanel();
+    });
+
+    /* ─── Close ─── */
+    closeBtn.addEventListener('click', closePanel);
+
+    /* ─── Outside click ─── */
+    document.addEventListener('click', function (e) {
+      if (panelOpen && !launcher.contains(e.target)) closePanel();
+    });
+
+    /* ─── LIVE CHAT button ───
+       1. Close our panel instantly (no overlap).
+       2. Open Tawk's window.
+    ─── */
+    liveBtn.addEventListener('click', function () {
+      closePanel();                          /* our panel gone first */
+      launcher.style.visibility = 'hidden'; /* hide avatar too */
+
+      /* Open Tawk — try immediately, then poll until ready */
+      function tryOpen() {
+        if (typeof Tawk_API !== 'undefined' && typeof Tawk_API.maximize === 'function') {
+          Tawk_API.showWidget();
+          Tawk_API.maximize();
+        } else {
+          setTimeout(tryOpen, 300);
+        }
+      }
+      tryOpen();
+    });
+
+    /* ─── Open / close helpers ─── */
+    function openPanel() {
+      if (panelOpen) return;
+      panelOpen = true;
+      badge.classList.add('hide');
+      sessionStorage.setItem(SEEN_KEY, '1');
+      panel.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { panel.classList.add('show'); });
+      });
+      if (!seqDone) runSequence();
+    }
+
+    function closePanel() {
+      if (!panelOpen) return;
+      panelOpen = false;
+      panel.classList.remove('show');
+      btn.setAttribute('aria-expanded', 'false');
+      setTimeout(function () { panel.classList.remove('open'); }, 320);
+    }
+
+    /* ─── Staggered greeting sequence ─── */
+    function runSequence() {
+      seqDone = true;
+      /* Typing dots */
+      typing.style.display = 'flex';
+      setTimeout(function () { dots.classList.add('shown'); }, 80);
+      /* Message 1 */
+      setTimeout(function () {
+        typing.style.display = 'none';
+        msg1el.style.display = 'flex';
+        setTimeout(function () { bubble1.classList.add('shown'); }, 50);
+      }, 1500);
+      /* Typing again */
+      setTimeout(function () {
+        dots.classList.remove('shown');
+        typing.style.display = 'flex';
+        setTimeout(function () { dots.classList.add('shown'); }, 80);
+      }, 2300);
+      /* Message 2 + show CTA */
+      setTimeout(function () {
+        typing.style.display = 'none';
+        msg2el.style.display = 'flex';
+        setTimeout(function () { bubble2.classList.add('shown'); }, 50);
+        setTimeout(function () { actions.classList.add('visible'); }, 500);
+      }, 3600);
+    }
+
+  })();
+  </script>
 </body>
 </html>
