@@ -928,5 +928,94 @@
   </footer>
 
   <script src="script.js"></script>
+	 <!-- ============ CHAT NUDGE WIDGET ============ -->
+  <div class="chat-nudge" id="chatNudge" role="complementary" aria-label="Live chat">
+
+    <!-- Speech bubble -->
+    <div class="chat-nudge__bubble">
+      <button class="chat-nudge__dismiss" id="nudgeDismiss" aria-label="Dismiss chat prompt">&#x2715;</button>
+      <div class="chat-nudge__status">
+        <span class="chat-nudge__online-dot"></span>
+        <span class="chat-nudge__online-text">Akash is online</span>
+      </div>
+      <p class="chat-nudge__message">Got a question or a project in mind?</p>
+      <p class="chat-nudge__cta">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Chat now — it's instant
+      </p>
+    </div>
+
+    <!-- Illustration -->
+    <div class="chat-nudge__figure" id="nudgeFigure" title="Chat with Akash">
+      <div class="chat-nudge__ring"></div>
+      <img src="chat-illustration.svg" alt="Chat with Akash" width="120" height="120"
+           style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" />
+      <span class="chat-nudge__badge" aria-hidden="true">1</span>
+    </div>
+
+  </div>
+
+  <script>
+  /* ── Chat Nudge Widget ── */
+  (function () {
+    var DISMISS_KEY = 'nudge_dismissed_v1';
+    var nudge   = document.getElementById('chatNudge');
+    var dismiss = document.getElementById('nudgeDismiss');
+    var figure  = document.getElementById('nudgeFigure');
+
+    /* Don't show if dismissed this session */
+    if (sessionStorage.getItem(DISMISS_KEY)) return;
+
+    /* Show after 3.5 seconds */
+    setTimeout(function () {
+      nudge.classList.add('visible');
+    }, 3500);
+
+    /* Clicking the illustration opens Tawk.to */
+    figure.addEventListener('click', function () {
+      if (typeof Tawk_API !== 'undefined' && Tawk_API.toggle) {
+        Tawk_API.toggle();
+      } else {
+        /* Fallback: scroll to contact form */
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    /* Dismiss button */
+    dismiss.addEventListener('click', function (e) {
+      e.stopPropagation();
+      nudge.classList.add('dismissed');
+      sessionStorage.setItem(DISMISS_KEY, '1');
+      setTimeout(function () { nudge.style.display = 'none'; }, 500);
+    });
+
+    /* Tawk.to API hooks — hide nudge when chat opens */
+    var checkTawk = setInterval(function () {
+      if (typeof Tawk_API !== 'undefined') {
+        clearInterval(checkTawk);
+        Tawk_API.onChatStarted = function () {
+          nudge.classList.add('dismissed');
+          setTimeout(function () { nudge.style.display = 'none'; }, 500);
+        };
+      }
+    }, 800);
+  })();
+  </script>
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/69b8f62e7b19961c37ddbfb6/1jjt83a6b';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
 </body>
 </html>
