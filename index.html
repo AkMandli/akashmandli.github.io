@@ -928,248 +928,328 @@
   </footer>
 
   <script src="script.js"></script>
- <!-- ============ CHAT WIDGET ============ -->
-  <!--
-    ARCHITECTURE:
-    1. Tawk_API is pre-configured BEFORE the script loads.
-       • widget is hidden immediately on load — no flash of green button.
-       • onChatMaximized / onChatMinimized hooks sync our UI.
-    2. Our branded panel is the ONLY thing visible to the visitor.
-    3. "Start Live Chat" closes our panel and opens Tawk's window.
-       Nothing is ever on screen at the same time.
-  -->
+ <!-- ============ CHATBOT WIDGET ============ -->
+  <div class="chatbot" id="chatbot">
 
-  <!-- Pre-configure Tawk BEFORE it loads so hideWidget fires on onLoad -->
-  <script>
-  var Tawk_API = Tawk_API || {};
-  Tawk_API.onLoad = function () {
-    Tawk_API.hideWidget();          /* hide green bubble permanently */
-  };
-  Tawk_API.onChatMaximized = function () {
-    /* Tawk window is open — keep our launcher hidden */
-    var l = document.getElementById('chatLauncher');
-    if (l) l.style.visibility = 'hidden';
-  };
-  Tawk_API.onChatMinimized = function () {
-    /* Tawk window minimised — bring our launcher back */
-    var l = document.getElementById('chatLauncher');
-    if (l) l.style.visibility = 'visible';
-  };
-  Tawk_API.onChatEnded = function () {
-    var l = document.getElementById('chatLauncher');
-    if (l) l.style.visibility = 'visible';
-  };
-  </script>
-
-  <!-- Tawk.to live chat (loads silently) -->
-  <!--Start of Tawk.to Script-->
-  <script type="text/javascript">
-  var Tawk_LoadStart=new Date();
-  (function(){
-  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-  s1.async=true;
-  s1.src='https://embed.tawk.to/69b8f62e7b19961c37ddbfb6/1jjt83a6b';
-  s1.charset='UTF-8';
-  s1.setAttribute('crossorigin','*');
-  s0.parentNode.insertBefore(s1,s0);
-  })();
-  </script>
-  <!--End of Tawk.to Script-->
-
-  <!-- Branded panel widget -->
-  <div class="chat-launcher" id="chatLauncher" aria-label="Chat with Akash">
-
-    <div class="chat-launcher__panel" id="clPanel" role="dialog" aria-label="Chat with Akash">
+    <!-- Chat window -->
+    <div class="chatbot__window" id="cbWindow" role="dialog" aria-label="Chat with Akash">
 
       <!-- Header -->
-      <div class="clp-topbar">
-        <div class="clp-avatar">
-          <img src="chat-illustration.svg" alt="Akash Mandli" class="clp-avatar-img"/>
-          <span class="clp-avatar-dot"></span>
+      <div class="cb-header">
+        <div class="cb-header__avatar">
+          <img src="chat-illustration.svg" alt="" class="cb-header__avatar-img"/>
+          <span class="cb-header__avatar-dot"></span>
         </div>
-        <div class="clp-info">
-          <div class="clp-info__name">Akash Mandli</div>
-          <div class="clp-info__role">BA &amp; Pre-Sales Strategist</div>
-          <div class="clp-info__online">
-            <span class="clp-info__online-dot"></span>
-            Online &mdash; replies fast
+        <div class="cb-header__info">
+          <div class="cb-header__name">Akash Mandli</div>
+          <div class="cb-header__role">BA &amp; Pre-Sales Strategist</div>
+          <div class="cb-header__status">
+            <span class="cb-header__status-dot"></span>
+            Typically replies within a few hours
           </div>
         </div>
-        <button class="clp-close" id="clClose" aria-label="Close chat preview">
+        <button class="cb-close" id="cbClose" aria-label="Close chat">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
       </div>
 
-      <!-- Agent messages -->
-      <div class="clp-messages" id="clMessages">
-        <div class="clp-typing" id="clTyping" style="display:none;">
-          <img src="chat-illustration.svg" alt="" class="clp-msg__avatar"/>
-          <div class="clp-typing__dots" id="clDots">
-            <span></span><span></span><span></span>
-          </div>
-        </div>
-        <div class="clp-msg" id="clMsg1" style="display:none;">
-          <img src="chat-illustration.svg" alt="" class="clp-msg__avatar"/>
-          <div class="clp-msg__bubble" id="clBubble1">
-            Hey &#128075; I'm <strong>Akash</strong> &mdash; BA &amp; Pre-Sales Strategist.
-          </div>
-        </div>
-        <div class="clp-msg" id="clMsg2" style="display:none;">
-          <img src="chat-illustration.svg" alt="" class="clp-msg__avatar"/>
-          <div class="clp-msg__bubble" id="clBubble2">
-            Got a project or a role in mind? Let&#39;s talk &mdash; I&#39;m available right now.
-          </div>
-        </div>
-      </div>
+      <!-- Message thread -->
+      <div class="cb-thread" id="cbThread"></div>
 
-      <!-- CTA -->
-      <div class="clp-actions" id="clActions">
-        <button class="clp-live-btn" id="clLiveBtn">
+      <!-- Input area -->
+      <div class="cb-input-area" id="cbInputArea">
+        <textarea class="cb-input" id="cbInput" rows="1"
+          placeholder="Type a message…" aria-label="Your message"></textarea>
+        <button class="cb-send" id="cbSend" aria-label="Send">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
           </svg>
-          Start Live Chat
         </button>
-        <p class="clp-fallback">
-          Prefer email? <a href="index.html#contact">Leave a message &rarr;</a>
-        </p>
       </div>
 
     </div>
 
     <!-- Avatar launcher -->
-    <button class="chat-launcher__btn" id="clBtn" aria-label="Chat with Akash" aria-expanded="false">
-      <div class="chat-launcher__glow"></div>
-      <div class="chat-launcher__ring"></div>
-      <img src="chat-illustration.svg" alt="" class="chat-launcher__avatar-img"/>
-      <span class="chat-launcher__badge" id="clBadge">1</span>
-      <span class="chat-launcher__status-dot"></span>
+    <button class="chatbot__btn" id="cbBtn" aria-label="Chat with Akash" aria-expanded="false">
+      <div class="chatbot__glow"></div>
+      <div class="chatbot__ring"></div>
+      <img src="chat-illustration.svg" alt="" class="chatbot__btn-img"/>
+      <span class="chatbot__badge" id="cbBadge">1</span>
+      <span class="chatbot__dot"></span>
     </button>
 
   </div>
 
+  <!-- Hidden iframe for GAS form POST (no CORS issues) -->
+  <iframe name="cb_iframe" style="display:none;width:0;height:0;border:none;"></iframe>
+
   <script>
   (function () {
-    var SEEN_KEY = 'cl_seen_v4';
-    var launcher = document.getElementById('chatLauncher');
-    var btn      = document.getElementById('clBtn');
-    var panel    = document.getElementById('clPanel');
-    var badge    = document.getElementById('clBadge');
-    var closeBtn = document.getElementById('clClose');
-    var typing   = document.getElementById('clTyping');
-    var dots     = document.getElementById('clDots');
-    var msg1el   = document.getElementById('clMsg1');
-    var msg2el   = document.getElementById('clMsg2');
-    var bubble1  = document.getElementById('clBubble1');
-    var bubble2  = document.getElementById('clBubble2');
-    var actions  = document.getElementById('clActions');
-    var liveBtn  = document.getElementById('clLiveBtn');
 
-    var panelOpen = false;
-    var seqDone   = false;
-    var seen      = !!sessionStorage.getItem(SEEN_KEY);
+    /* ── Config ── */
+    var GAS_URL  = 'https://script.google.com/macros/s/AKfycby3SAEeYUd_85KpyhWUK3NU9pjPTywqO-yYRSDYBa7VlzsBNyqn92AlSCyVS5VcKfKV/exec';
+    var SEEN_KEY = 'cb_seen_v1';
 
-    /* ─── Show avatar button 1.5 s after load ─── */
+    /* ── DOM refs ── */
+    var bot      = document.getElementById('chatbot');
+    var btn      = document.getElementById('cbBtn');
+    var badge    = document.getElementById('cbBadge');
+    var win      = document.getElementById('cbWindow');
+    var closeBtn = document.getElementById('cbClose');
+    var thread   = document.getElementById('cbThread');
+    var inputEl  = document.getElementById('cbInput');
+    var sendBtn  = document.getElementById('cbSend');
+
+    /* ── State ── */
+    var open     = false;
+    var step     = 0;     /* 0=idle 1=name 2=email 3=message 4=done */
+    var data     = {};    /* { name, email, message } */
+    var greeting = !sessionStorage.getItem(SEEN_KEY);
+
+    /* ── Show button 1.5 s after page load ── */
     setTimeout(function () {
-      launcher.classList.add('ready');
+      bot.classList.add('ready');
       btn.classList.add('visible');
     }, 1500);
 
-    /* ─── Auto-open panel once on first visit ─── */
-    if (!seen) {
-      setTimeout(function () { if (!panelOpen) openPanel(); }, 4000);
+    /* ── Auto-open on first visit after 4 s ── */
+    if (greeting) {
+      setTimeout(function () { if (!open) openChat(); }, 4000);
     }
 
-    /* ─── If already seen, skip sequence and show CTA ─── */
-    if (seen) {
-      seqDone = true;
-      msg1el.style.display  = 'flex'; bubble1.classList.add('shown');
-      msg2el.style.display  = 'flex'; bubble2.classList.add('shown');
-      actions.classList.add('visible');
-    }
+    /* ── Toggle ── */
+    btn.addEventListener('click',      function () { open ? closeChat() : openChat(); });
+    closeBtn.addEventListener('click', closeChat);
 
-    /* ─── Avatar toggle ─── */
-    btn.addEventListener('click', function () {
-      panelOpen ? closePanel() : openPanel();
-    });
-
-    /* ─── Close ─── */
-    closeBtn.addEventListener('click', closePanel);
-
-    /* ─── Outside click ─── */
+    /* ── Outside click ── */
     document.addEventListener('click', function (e) {
-      if (panelOpen && !launcher.contains(e.target)) closePanel();
+      if (open && !bot.contains(e.target)) closeChat();
     });
 
-    /* ─── LIVE CHAT button ───
-       1. Close our panel instantly (no overlap).
-       2. Open Tawk's window.
-    ─── */
-    liveBtn.addEventListener('click', function () {
-      closePanel();                          /* our panel gone first */
-      launcher.style.visibility = 'hidden'; /* hide avatar too */
-
-      /* Open Tawk — try immediately, then poll until ready */
-      function tryOpen() {
-        if (typeof Tawk_API !== 'undefined' && typeof Tawk_API.maximize === 'function') {
-          Tawk_API.showWidget();
-          Tawk_API.maximize();
-        } else {
-          setTimeout(tryOpen, 300);
-        }
-      }
-      tryOpen();
+    /* ── Send on button or Enter (Shift+Enter = newline) ── */
+    sendBtn.addEventListener('click', handleSend);
+    inputEl.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }
     });
 
-    /* ─── Open / close helpers ─── */
-    function openPanel() {
-      if (panelOpen) return;
-      panelOpen = true;
+    /* ── Auto-resize textarea ── */
+    inputEl.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 96) + 'px';
+    });
+
+    /* ════════════════════════════════════════════
+       OPEN / CLOSE
+    ════════════════════════════════════════════ */
+    function openChat() {
+      if (open) return;
+      open = true;
       badge.classList.add('hide');
       sessionStorage.setItem(SEEN_KEY, '1');
-      panel.classList.add('open');
+      win.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
       requestAnimationFrame(function () {
-        requestAnimationFrame(function () { panel.classList.add('show'); });
+        requestAnimationFrame(function () { win.classList.add('show'); });
       });
-      if (!seqDone) runSequence();
+      if (step === 0) startConversation();
+      setTimeout(function () { inputEl.focus(); }, 400);
     }
 
-    function closePanel() {
-      if (!panelOpen) return;
-      panelOpen = false;
-      panel.classList.remove('show');
+    function closeChat() {
+      if (!open) return;
+      open = false;
+      win.classList.remove('show');
       btn.setAttribute('aria-expanded', 'false');
-      setTimeout(function () { panel.classList.remove('open'); }, 320);
+      setTimeout(function () { win.classList.remove('open'); }, 320);
     }
 
-    /* ─── Staggered greeting sequence ─── */
-    function runSequence() {
-      seqDone = true;
-      /* Typing dots */
-      typing.style.display = 'flex';
-      setTimeout(function () { dots.classList.add('shown'); }, 80);
-      /* Message 1 */
+    /* ════════════════════════════════════════════
+       CONVERSATION FLOW
+    ════════════════════════════════════════════ */
+    function startConversation() {
+      step = 1;
+      disableInput(true);
+
+      /* Greeting sequence */
+      botType(1000, function () {
+        addBotMsg("Hey there &#x1F44B; I'm <strong>Akash Mandli</strong> &mdash; BA &amp; Pre-Sales Strategist.");
+        botType(900, function () {
+          addBotMsg("I'd love to hear from you. What's your name?");
+          disableInput(false);
+          inputEl.placeholder = "Your name\u2026";
+        });
+      });
+    }
+
+    function handleSend() {
+      var val = inputEl.value.trim();
+      if (!val || step === 0 || step === 4) return;
+
+      addUserMsg(val);
+      inputEl.value = '';
+      inputEl.style.height = 'auto';
+      disableInput(true);
+
+      if      (step === 1) collectName(val);
+      else if (step === 2) collectEmail(val);
+      else if (step === 3) collectMessage(val);
+    }
+
+    function collectName(val) {
+      data.name = val;
+      step = 2;
+      botType(800, function () {
+        addBotMsg("Nice to meet you, <strong>" + esc(val) + "</strong>! &#x1F44F;");
+        botType(700, function () {
+          addBotMsg("What's your email address so I can get back to you?");
+          disableInput(false);
+          inputEl.placeholder = "your@email.com\u2026";
+          inputEl.setAttribute('type', 'email');
+        });
+      });
+    }
+
+    function collectEmail(val) {
+      /* Basic email check */
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+        botType(600, function () {
+          addBotMsg("Hmm, that doesn't look like a valid email. Could you double-check it?");
+          disableInput(false);
+          inputEl.placeholder = "your@email.com\u2026";
+        });
+        return;
+      }
+      data.email = val;
+      step = 3;
+      botType(800, function () {
+        addBotMsg("Got it &#x2714;&#xFE0F;");
+        botType(700, function () {
+          addBotMsg("What's on your mind? A project, a role, or just a question &mdash; anything works.");
+          disableInput(false);
+          inputEl.placeholder = "Tell me a bit more\u2026";
+          inputEl.setAttribute('type', 'text');
+        });
+      });
+    }
+
+    function collectMessage(val) {
+      data.message = val;
+      step = 4;
+
+      botType(900, function () {
+        /* Submit to GAS backend */
+        submitToGAS();
+
+        addBotMsg(
+          "Perfect &#x1F64C; I've received your message, <strong>" + esc(data.name) + "</strong>.",
+          true
+        );
+        botType(700, function () {
+          addBotMsg(
+            "I'll get back to you at <strong>" + esc(data.email) + "</strong> shortly. " +
+            "Thanks for reaching out &mdash; speak soon! &#x1F91D;",
+            true
+          );
+          /* Hide input area cleanly */
+          var ia = document.getElementById('cbInputArea');
+          ia.style.display = 'none';
+        });
+      });
+    }
+
+    /* ════════════════════════════════════════════
+       DOM HELPERS
+    ════════════════════════════════════════════ */
+    function addBotMsg(html, done) {
+      var row = document.createElement('div');
+      row.className = 'cb-bot-row';
+      row.innerHTML =
+        '<img src="chat-illustration.svg" alt="" class="cb-bot-avatar"/>' +
+        '<div class="cb-bot-bubble' + (done ? ' done' : '') + '">' + html + '</div>';
+      thread.appendChild(row);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { row.classList.add('show'); scroll(); });
+      });
+    }
+
+    function addUserMsg(text) {
+      var row = document.createElement('div');
+      row.className = 'cb-user-row';
+      row.innerHTML = '<div class="cb-user-bubble">' + esc(text) + '</div>';
+      thread.appendChild(row);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { row.classList.add('show'); scroll(); });
+      });
+    }
+
+    function botType(ms, cb) {
+      var row = document.createElement('div');
+      row.className = 'cb-typing-row';
+      row.innerHTML =
+        '<img src="chat-illustration.svg" alt="" class="cb-bot-avatar"/>' +
+        '<div class="cb-typing-dots"><span></span><span></span><span></span></div>';
+      thread.appendChild(row);
+      scroll();
       setTimeout(function () {
-        typing.style.display = 'none';
-        msg1el.style.display = 'flex';
-        setTimeout(function () { bubble1.classList.add('shown'); }, 50);
-      }, 1500);
-      /* Typing again */
-      setTimeout(function () {
-        dots.classList.remove('shown');
-        typing.style.display = 'flex';
-        setTimeout(function () { dots.classList.add('shown'); }, 80);
-      }, 2300);
-      /* Message 2 + show CTA */
-      setTimeout(function () {
-        typing.style.display = 'none';
-        msg2el.style.display = 'flex';
-        setTimeout(function () { bubble2.classList.add('shown'); }, 50);
-        setTimeout(function () { actions.classList.add('visible'); }, 500);
-      }, 3600);
+        thread.removeChild(row);
+        cb();
+        scroll();
+      }, ms);
+    }
+
+    function scroll() {
+      thread.scrollTop = thread.scrollHeight;
+    }
+
+    function disableInput(off) {
+      inputEl.disabled = off;
+      sendBtn.disabled = off;
+      if (!off) {
+        setTimeout(function () { inputEl.focus(); }, 60);
+      }
+    }
+
+    function esc(s) {
+      return String(s)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;');
+    }
+
+    /* ════════════════════════════════════════════
+       FORM SUBMISSION → Google Apps Script
+       Same hidden-iframe technique as the contact form
+    ════════════════════════════════════════════ */
+    function submitToGAS() {
+      try {
+        var f = document.createElement('form');
+        f.method  = 'POST';
+        f.action  = GAS_URL;
+        f.target  = 'cb_iframe';
+        f.style.display = 'none';
+
+        var fields = [
+          ['name',    data.name],
+          ['email',   data.email],
+          ['type',    'Chatbot'],
+          ['message', data.message]
+        ];
+        fields.forEach(function (p) {
+          var i = document.createElement('input');
+          i.name = p[0]; i.value = p[1];
+          f.appendChild(i);
+        });
+
+        document.body.appendChild(f);
+        f.submit();
+        document.body.removeChild(f);
+      } catch(e) {
+        /* Silent fail — message already shown to user */
+      }
     }
 
   })();
